@@ -6,27 +6,21 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="ISO-8859-1">
-		<title>Login Page</title>
+	<meta charset="ISO-8859-1">
+	<title>Register Page</title>
 	</head>
 	
 	<body>
-		<form action="checkLoginDetails.jsp" method="POST">
+		<form action="registration.jsp" method="POST">
 			<div>
-				Welcome to our Auction Site!
+				Registration page. Please enter your login name and password.
 			</div>
 			<div>
 				Username: <input type="text" name="username"/> <br/>
 				Password: <input type="text" name="password"/> <br/>
+				Re-enter password: <input type="text" name="reEnterPassword"/> <br/>
 				<input type="submit" value="Login"/>
 			</div>
-		</form>
-		<br>
-		<form action="registerUserPage.jsp" method="POST">
-			<p>
-				Click register if you are a new user
-			</p>
-			<input type="submit" value="Register"/>
 		</form>
 	</body>
 </html>

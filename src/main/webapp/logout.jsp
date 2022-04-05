@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 
 <% 
+	session.getAttribute("username");
 	session.invalidate();
-	session.getAttribute("user");
 	response.sendRedirect("login.jsp");
 %>
