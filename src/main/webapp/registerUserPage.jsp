@@ -17,6 +17,7 @@
 			</div>
 			<div>
 				Username: <input type="text" name="username"/> <br/>
+				Email: <input type="text" name="email"/> <br/>
 				Password: <input type="text" name="password"/> <br/>
 				Re-enter password: <input type="text" name="reEnterPassword"/> <br/>
 				<input type="submit" value="Login"/>

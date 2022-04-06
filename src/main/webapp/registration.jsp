@@ -5,6 +5,7 @@
 
 <%
 	String username = request.getParameter("username");
+	String email = request.getParameter("email");
 	String password = request.getParameter("password");
 	String reEnterPassword = request.getParameter("reEnterPassword");
 	
@@ -13,18 +14,35 @@
 	
 	Statement statement = con.createStatement();
 	
-	ResultSet result = statement.executeQuery("select * from userLogin where username='" + username + "'");
-	
 	// Check if the two password fields match
-	// Check to see if the user exists
-	// If it does, the login name is already taken. If not, data username and password to the database.
+	// Check to see if the user exists and if email exists
+	// If it does, the login name ot email is already taken. If not, add username, email and password to the database.
+	
+	int errorCount = 0;
+	
+	if (username.trim().equals("") || username.trim().equals("") || username.trim().equals("") || username.trim().equals("")) {
+		out.println("Please fill in all fields");
+		errorCount++; 
+	}
 	if (!password.equals(reEnterPassword)) {
-		out.println("Passwords do not match <a href='registerUserPage.jsp'> Click here to try again </a>");
-	} else if (result.next()) {
-		out.println("User name already exists <a href='registerUserPage.jsp'> Click here to try again </a>");
-	} else {
-		statement.executeUpdate("insert into userLogin values('" + username + "','" + password + "')");
+		out.println("Passwords do not match");
+		errorCount++;
+	}
+	ResultSet result = statement.executeQuery("select * from userLogin where username='" + username + "'");
+	if (result.next()) {
+		out.println("User name already exists");
+		errorCount++;
+	} 
+	ResultSet resultEmail = statement.executeQuery("select * from userLogin where email='" + email + "'");
+	if (resultEmail.next()) {
+		out.println("Email is being used by another account");
+		errorCount++;
+	} 
+	if (errorCount==0) {
+		statement.executeUpdate("insert into userLogin values('" + username + "','" + email + "','" + password + "')");
 		out.println("Registration successful!");
 		out.println("<a href='login.jsp'> Click here to login </a>");
+	} else {
+		out.println("<a href='registerUserPage.jsp'> Click here to try again </a>");
 	}
 %>

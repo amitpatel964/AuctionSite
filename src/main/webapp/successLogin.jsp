@@ -16,7 +16,8 @@
 			} else {
 		%>
 			Welcome <%=session.getAttribute("user")%>
-			<a href='logout.jsp'>Log out</a>
+			<a href='logout.jsp'>Log out</a> <br>
+			<a href='userHomePage.jsp'>Click here to go to your home page</a>
 			<% } %>
 	</body>
 </html>
