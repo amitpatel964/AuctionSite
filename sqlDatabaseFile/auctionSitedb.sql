@@ -1,4 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `auctionSitedb` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE IF NOT EXISTS `auctionSitedb` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `auctionSitedb`;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -20,4 +20,19 @@ CREATE TABLE `userLogin` (
     `email` varchar(50) DEFAULT NULL,
 	`password` varchar(50) DEFAULT NULL,
 	primary key (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `auction`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auction` (
+	`auctionID` int NOT NULL DEFAULT 0,
+    `auctionName` varchar(50) DEFAULT NULL,
+    `initialPrice` float DEFAULT NULL,
+    `minimumSellingPrice` float DEFAULT NULL,
+    `bidIncrement` float DEFAULT NULL,
+    `vehicleType` varchar(20) DEFAULT NULL,
+    `startingDate` datetime DEFAULT NULL,
+    `endingDate` datetime default NULL,
+    primary key (`auctionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
