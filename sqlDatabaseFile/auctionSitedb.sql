@@ -27,8 +27,10 @@ DROP TABLE IF EXISTS `auction`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `auction` (
 	`auctionID` int NOT NULL DEFAULT 0,
+    `creator` varchar(50) DEFAULT NULL,
     `auctionName` varchar(50) DEFAULT NULL,
     `initialPrice` float DEFAULT NULL,
+    `currentPrice` float DEFAULT NULL,
     `minimumSellingPrice` float DEFAULT NULL,
     `bidIncrement` float DEFAULT NULL,
     `vehicleType` varchar(20) DEFAULT NULL,

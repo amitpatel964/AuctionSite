@@ -11,6 +11,7 @@
 	String vehicleType = request.getParameter("vehicleType");
 	String endingDate = request.getParameter("endingDate");
 	String endingTime = request.getParameter("endingTime");
+	String creator = session.getAttribute("user").toString();
 	
 	ApplicationDB db = new ApplicationDB();
 	Connection con = db.getConnection();
@@ -53,11 +54,11 @@
 	auctionID += amount;
 	
 	if (errorCount==0) {
-		statement.executeUpdate("insert into auction values('" + auctionID + "','" + auctionName + "','" + 
-			initialPrice + "','" + minimumSellingPrice + "','" + bidIncrement + "','" + vehicleType + "','" + 
+		statement.executeUpdate("insert into auction values('" + auctionID + "','" + creator + "','" + auctionName + "','" + 
+			initialPrice + "','" + initialPrice + "','" + minimumSellingPrice + "','" + bidIncrement + "','" + vehicleType + "','" + 
 			startingDateTime + "','" + endingDateTime + "')");
 		out.println("Auction made!");
-		out.println("<a href='login.jsp'> Click here to login </a>");
+		out.println("<a href='userHomePage.jsp'> Click here to go to your home page </a>");
 	} else {
 		out.println("<a href='createAuctionPage.jsp'> Click here to try again </a>");
 	}

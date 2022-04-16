@@ -27,5 +27,11 @@ From here, the user is able to create an auction, search of an auction, and view
 			</p>
 			<input type="submit" value="Create New Auction"/>
 		</form>
+		<form action="searchAuctionPage.jsp" method="POST">
+			<p>
+				Click the button below to search for auctions.
+			</p>
+			<input type="submit" value="Search Auctions"/>
+		</form>
 	</body>
 </html>

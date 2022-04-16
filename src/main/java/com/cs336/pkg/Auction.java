@@ -14,17 +14,17 @@ public class Auction {
 	LocalDateTime endingDateTime;
 	String currentHighestBidder = "";
 	
-	public Auction (int auctionID, String auctionName, float initialPrice, float minimumSellingPrice, float bidIncrement,
-			float autoBidUpperLimit, String vehicleType, LocalDateTime startingDateTime, LocalDateTime endingDateTime) {
-		this.auctionID = auctionID;
-		this.initialPrice = initialPrice;
-		this.minimumSellingPrice = minimumSellingPrice;
-		this.bidIncrement = bidIncrement;
-		this.autoBidUpperLimit = autoBidUpperLimit;
-		this.vehicleType = vehicleType;
-		this.startingDateTime = startingDateTime;
-		this.endingDateTime = endingDateTime;
-	}
+//	public Auction (int auctionID, String auctionName, float initialPrice, float minimumSellingPrice, float bidIncrement,
+//			float autoBidUpperLimit, String vehicleType, LocalDateTime startingDateTime, LocalDateTime endingDateTime) {
+//		this.auctionID = auctionID;
+//		this.initialPrice = initialPrice;
+//		this.minimumSellingPrice = minimumSellingPrice;
+//		this.bidIncrement = bidIncrement;
+//		this.autoBidUpperLimit = autoBidUpperLimit;
+//		this.vehicleType = vehicleType;
+//		this.startingDateTime = startingDateTime;
+//		this.endingDateTime = endingDateTime;
+//	}
 	
 	public int getAuctionID() {
 		return this.auctionID;
