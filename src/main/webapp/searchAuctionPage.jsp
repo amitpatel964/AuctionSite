@@ -16,24 +16,24 @@
 		</div>
 		
 		<%
-		ApplicationDB db = new ApplicationDB();
-		Connection con = db.getConnection();
-		
-		Statement statement = con.createStatement();
-		
-		ResultSet auctions = statement.executeQuery("select * from auction");
-		ResultSetMetaData data = auctions.getMetaData();
-		int numberOfColumns = data.getColumnCount();
-		while (auctions.next()) {
-			for (int i = 1; i <= numberOfColumns; i++) {
-				if (i > 1) {
-					out.print(", ");
-				}
-				String valueForCurrentColumn = auctions.getString(i);
-				out.print(valueForCurrentColumn + " " + data.getColumnName(i));
+			List<Auction> allAuctions = HelperFunctions.getListOfAuctions();
+			
+			for (int i = 0; i < allAuctions.size(); i++) {
+				%>
+				<form action="showAuctionDetails.jsp" method="POST">
+					<input type="hidden" name="idHelper" value="<%= allAuctions.get(i).getAuctionID() %>"/>
+					<input type="submit" value="Select this Auction"/>
+					Auction: <%= allAuctions.get(i).getAuctionID() %>
+					Auction Name: <%= allAuctions.get(i).getAuctionName() %>
+					Creator: <%= allAuctions.get(i).getCreator() %>
+					Current Price: <%= allAuctions.get(i).getCurrentPrice() %>
+					Bid Increment: <%= allAuctions.get(i).getBidIncrement() %>
+					Vehicle Type: <%= allAuctions.get(i).getVehicleType() %>
+					Ending on: <%= allAuctions.get(i).getEndingDate() %>
+				</form>
+				<br/>
+				<%
 			}
-			out.println("");
-		}
 		%>
 	</body>
 </html>

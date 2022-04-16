@@ -38,3 +38,26 @@ CREATE TABLE `auction` (
     `endingDate` datetime default NULL,
     primary key (`auctionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `vehicle`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vehicle` (
+	`vin` int NOT NULL DEFAULT 0,
+    `numberOfDoors` int DEFAULT 0,
+    `numberOfWheels` int DEFAULT 0,
+    `numberOfSeats` int DEFAULT 0,
+    `mileage` int DEFAULT 0,
+    `milesPerGallon` int DEFAULT 0,
+    `fuelType` varchar(50) DEFAULT NULL,
+    `isNew` boolean DEFAULT false,
+    `manufacturer` varchar(50) DEFAULT NULL,
+    `model` varchar(50) DEFAULT NULL,
+    `year` int DEFAULT 0,
+    `color` varchar(50) DEFAULT NULL,
+    `wheelDriveType` varchar(50) DEFAULT NULL,
+    `transmisionType` varchar(50) DEFAULT NULL,
+    `auctionID` int DEFAULT 0,
+    primary key (`vin`),
+    foreign key(`auctionID`) references `auction`(`auctionID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

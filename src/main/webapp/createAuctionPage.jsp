@@ -24,12 +24,20 @@
 				Starting Price: <input type="text" name="initialPrice"/> <br/>
 				Minimum Selling Price: <input type="text" name="minimumSellingPrice"/> <br/>
 				Bid Increment: <input type="text" name="bidIncrement"/> <br/>
-				Vehicle Type: <input type="text" name="vehicleType"/> <br/>
+				Vehicle Type: 
+				<input type="radio" name="vehicleType" value="Car"/>Car<br/>
+				<input type="radio" name="vehicleType" value="SUV"/>SUV<br/> 
+				<input type="radio" name="vehicleType" value="Truck"/>Truck<br/> 
+				<input type="radio" name="vehicleType" value="Van"/>Van<br/> 
+				<br/>
 				Please format the date like this: YYYY-MM-DD
 				Ending Date: <input type="text" name="endingDate"/> <br/>
 				Please format the time like this: HH:MM (12 AM should be put in as 00, 1 PM and after should have 12 added
 				to the number)
 				Ending Time: <input type="text" name="endingTime"/> <br/>
+				<br/>
+				Vehicle details <br/>
+				
 				<input type="submit" value="Create Auction"/>
 			</form>
 		</div>

@@ -36,12 +36,6 @@
 	float minimumSellingPrice = Float.parseFloat(minimumSellingPriceString);
 	float bidIncrement = Float.parseFloat(bidIncrementString);
 	
-	//int month = Integer.parseInt(monthDayYear[0]);
-	//int day = Integer.parseInt(monthDayYear[1]);
-	//int year = Integer.parseInt(monthDayYear[2]);
-	//int hour = Integer.parseInt(monthDayTime[0]);
-	//int minute = Integer.parseInt(monthDayTime[1]);
-	
 	String dateAndTime = endingDate + " " + endingTime;
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 	LocalDateTime endingDateTime = LocalDateTime.parse(dateAndTime, formatter);
