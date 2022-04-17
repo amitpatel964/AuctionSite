@@ -52,4 +52,39 @@ public class HelperFunctions {
 		
 		return auctions;
 	}
+	
+	/**
+	 * Given an auctionID, this function searches for the vehicle associated with the aucitonID in the database.
+	 * 
+	 * @param auctionID
+	 * @return Vehicle associated with auctionID
+	 * @throws SQLException
+	 */
+	public static Vehicle getVehicleFromAuctionID(int auctionID) throws SQLException {
+		ApplicationDB db = new ApplicationDB();
+		java.sql.Connection con = db.getConnection();
+		
+		java.sql.Statement statement = con.createStatement();
+		
+		ResultSet vehicles = statement.executeQuery("select * from auction where auctionID='" + auctionID + "'");
+		
+		int vin = vehicles.getInt("vin");
+		int numberOfDoors = vehicles.getInt("numberOfDoors");
+		int numberOfWheels = vehicles.getInt("numberOfWheels");
+		int numberOfSeats = vehicles.getInt("numberOfSeats");
+		int mileage = vehicles.getInt("mileage");
+		int milesPerGallon = vehicles.getInt("milesPerGallon");
+		String fuelType = vehicles.getString("fuelType");
+		String newOrUsed = vehicles.getString("newOrUsed");
+		String manufacturer = vehicles.getString("manufacturer");
+		String model = vehicles.getString("model");
+		int year = vehicles.getInt("year");
+		String color = vehicles.getString("color");
+		String wheelDriveType = vehicles.getString("wheelDriveType");
+		String transmissionType = vehicles.getString("transmissionType");
+		
+		Vehicle vehicle = new Vehicle(vin, numberOfDoors, numberOfWheels, numberOfSeats, mileage, milesPerGallon, 
+				fuelType, newOrUsed, manufacturer, model, year, color, wheelDriveType, transmissionType, auctionID);
+		return vehicle;
+	}
 }
