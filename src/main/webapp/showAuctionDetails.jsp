@@ -19,6 +19,9 @@
 			int auctionID = Integer.parseInt(request.getParameter("idHelper"));
 			Vehicle vehicle = HelperFunctions.getVehicleFromAuctionID(auctionID);
 		%>
-		<%= vehicle.getVin() %>
+		<%= vehicle.getVin() %> <br/>
+		Number Of Doors: <%= vehicle.getNumberOfDoors() %> <br/>
+		Number Of Wheels: <%= vehicle.getNumberOfWheels() %> <br/>
+		Number Of Seats: <%= vehicle.getNumberOfSeats() %> <br/>
 	</body>
 </html>
