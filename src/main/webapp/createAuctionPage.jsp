@@ -25,10 +25,10 @@
 				Minimum Selling Price: <input type="text" name="minimumSellingPrice"/> <br/>
 				Bid Increment: <input type="text" name="bidIncrement"/> <br/>
 				Vehicle Type: 
-				<input type="radio" name="vehicleType" value="Car"/>Car<br/>
-				<input type="radio" name="vehicleType" value="SUV"/>SUV<br/> 
-				<input type="radio" name="vehicleType" value="Truck"/>Truck<br/> 
-				<input type="radio" name="vehicleType" value="Van"/>Van<br/> 
+				<input type="radio" name="vehicleType" value="Car" checked="checked"/>Car
+				<input type="radio" name="vehicleType" value="SUV"/>SUV
+				<input type="radio" name="vehicleType" value="Truck"/>Truck
+				<input type="radio" name="vehicleType" value="Van"/>Van
 				<br/>
 				Please format the date like this: YYYY-MM-DD
 				Ending Date: <input type="text" name="endingDate"/> <br/>
@@ -36,8 +36,38 @@
 				to the number)
 				Ending Time: <input type="text" name="endingTime"/> <br/>
 				<br/>
-				Vehicle details <br/>
 				
+				Vehicle details <br/>
+				VIN (Vehicle Identification Number): <input type="text" name="vin"/> <br/>
+				Number of doors: <input type="text" name="numberOfDoors"/> <br/>
+				Number of wheels: <input type="text" name="numberOfWheels"/> <br/>
+				Number of seats: <input type="text" name="numberOfSeats"/> <br/>
+				Mileage: <input type="text" name="mileage"/> <br/>
+				Miles Per Gallons: <input type="text" name="milesPerGallon"/> <br/>
+				Fuel Type:
+				<input type="radio" name=fuelType value="Gasoline" checked="checked"/>Gasoline
+				<input type="radio" name="fuelType" value="Electric"/>Electric
+				<input type="radio" name=fuelType value="Hybrid"/>Hybrid
+				<br/>
+				New or Used:
+				<input type="radio" name="newOrUsed" value="New"/>New
+				<input type="radio" name="newOrUsed" value="Used" checked="checked"/>Used
+				<br/>
+				Manufacturer: <input type="text" name="manufacturer"/> <br/>
+				Model: <input type="text" name="model"/> <br/>
+				Year: <input type="text" name="year"/> <br/>
+				Color: <input type="text" name="color"/> <br/>
+				Wheel Drive Type:
+				<input type="radio" name="wheelDriveType" value="Forward Wheel Drive" checked="checked"/>Forward Wheel Drive
+				<input type="radio" name="wheelDriveType" value="Rear Wheel Drive"/>Rear Wheel Drive
+				<input type="radio" name="wheelDriveType" value="Four Wheel Drive"/>Four Wheel Drive
+				<input type="radio" name="wheelDriveType" value="All Wheel Drive"/>All Wheel Drive
+				<br/>
+				Transmission Type:
+				<input type="radio" name=tranmissionType value="Automatic" checked="checked"/>Automatic
+				<input type="radio" name=tranmissionType value="Manual"/>Manual
+				<br/>
+				<br/>
 				<input type="submit" value="Create Auction"/>
 			</form>
 		</div>
