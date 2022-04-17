@@ -51,7 +51,7 @@ public class Auction {
 		return this.auctionName;
 	}
 	
-	public float getIntialPrice() {
+	public float getInitialPrice() {
 		return this.initialPrice;
 	}
 	

@@ -45,7 +45,6 @@ DROP TABLE IF EXISTS `vehicle`;
 CREATE TABLE `vehicle` (
 	`vin` int NOT NULL DEFAULT 0,
     `numberOfDoors` int DEFAULT 0,
-    `numberOfWheels` int DEFAULT 0,
     `numberOfSeats` int DEFAULT 0,
     `mileage` int DEFAULT 0,
     `milesPerGallon` int DEFAULT 0,

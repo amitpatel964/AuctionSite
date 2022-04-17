@@ -40,7 +40,6 @@
 				Vehicle details <br/>
 				VIN (Vehicle Identification Number): <input type="text" name="vin"/> <br/>
 				Number of doors: <input type="text" name="numberOfDoors"/> <br/>
-				Number of wheels: <input type="text" name="numberOfWheels"/> <br/>
 				Number of seats: <input type="text" name="numberOfSeats"/> <br/>
 				Mileage: <input type="text" name="mileage"/> <br/>
 				Miles Per Gallons: <input type="text" name="milesPerGallon"/> <br/>

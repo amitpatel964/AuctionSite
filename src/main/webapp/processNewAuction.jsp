@@ -28,7 +28,6 @@
 	
 	int vin = 0;
 	int numberOfDoors = 0;
-	int numberOfWheels = 0;
 	int numberOfSeats = 0;
 	int mileage = 0;
 	int milesPerGallon = 0;
@@ -44,7 +43,6 @@
 	try {
 		vin = Integer.parseInt(request.getParameter("vin"));
 		numberOfDoors = Integer.parseInt(request.getParameter("numberOfDoors"));
-		numberOfWheels = Integer.parseInt(request.getParameter("numberOfWheels"));
 		numberOfSeats = Integer.parseInt(request.getParameter("numberOfSeats"));
 		mileage = Integer.parseInt(request.getParameter("mileage"));
 		milesPerGallon = Integer.parseInt(request.getParameter("milesPerGallon"));
@@ -99,7 +97,7 @@
 	statement.executeUpdate("insert into auction values('" + auctionID + "','" + creator + "','" + auctionName + "','" + 
 			initialPrice + "','" + initialPrice + "','" + minimumSellingPrice + "','" + bidIncrement + "','" + vehicleType + "','" + 
 			startingDateTime + "','" + endingDateTime + "')");
-	statement.executeUpdate("insert into vehicle values('" + vin + "','" + numberOfDoors + "','" + numberOfWheels + "','" + 
+	statement.executeUpdate("insert into vehicle values('" + vin + "','" + numberOfDoors + "','" + 
 			numberOfSeats + "','" + mileage + "','" + milesPerGallon + "','" + fuelType + "','" + newOrUsed + "','" + 
 			manufacturer + "','" + model + "','" + year + "','" + color + "','" + wheelDriveType + "','" + transmissionType + "','" + auctionID + "')");
 	out.println("Auction made!");

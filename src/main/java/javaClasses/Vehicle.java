@@ -11,7 +11,6 @@ package javaClasses;
 public class Vehicle {
 	int vin;
 	int numberOfDoors;
-	int numberOfWheels;
 	int numberOfSeats;
 	int mileage;
 	int milesPerGallon;
@@ -25,12 +24,11 @@ public class Vehicle {
 	String transmissionType;
 	int auctionID;
 	
-	public Vehicle(int vin, int numberOfDoors, int numberOfWheels, int numberOfSeats, int mileage, int milesPerGallon,
+	public Vehicle(int vin, int numberOfDoors, int numberOfSeats, int mileage, int milesPerGallon,
 			String fuelType, String newOrUsed, String manufacturer, String model, int year, String color,
 			String wheelDriveType, String transmissionType, int auctionID) {
 		this.vin = vin;
 		this.numberOfDoors = numberOfDoors;
-		this.numberOfWheels = numberOfWheels;
 		this.numberOfSeats = numberOfSeats;
 		this.mileage = mileage;
 		this.milesPerGallon = milesPerGallon;
@@ -51,10 +49,6 @@ public class Vehicle {
 
 	public int getNumberOfDoors() {
 		return numberOfDoors;
-	}
-
-	public int getNumberOfWheels() {
-		return numberOfWheels;
 	}
 
 	public int getNumberOfSeats() {
@@ -97,7 +91,7 @@ public class Vehicle {
 		return wheelDriveType;
 	}
 
-	public String getTransmisionType() {
+	public String getTransmissionType() {
 		return transmissionType;
 	}
 

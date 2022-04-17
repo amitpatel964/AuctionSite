@@ -54,6 +54,26 @@ public class HelperFunctions {
 	}
 	
 	/**
+	 * Gets the auction that matches with the given auciton ID
+	 * 
+	 * @param auctionID
+	 * @return auction
+	 * @throws SQLException
+	 */
+	public static Auction getAuction(int auctionID) throws SQLException {
+		List<Auction> auctions = getListOfAuctions();
+		Auction auction = null;
+		
+		for (int i = 0; i < auctions.size(); i++) {
+			if (auctions.get(i).getAuctionID() == auctionID) {
+				auction = auctions.get(i);
+			}
+		}
+		
+		return auction;
+	}
+	
+	/**
 	 * Given an auctionID, this function searches for the vehicle associated with the aucitonID in the database.
 	 * 
 	 * @param auctionID
@@ -66,11 +86,11 @@ public class HelperFunctions {
 		
 		java.sql.Statement statement = con.createStatement();
 		
-		ResultSet vehicles = statement.executeQuery("select * from auction where auctionID='" + auctionID + "'");
+		ResultSet vehicles = statement.executeQuery("select * from vehicle where auctionID='" + auctionID + "'");
 		
+		vehicles.next();
 		int vin = vehicles.getInt("vin");
 		int numberOfDoors = vehicles.getInt("numberOfDoors");
-		int numberOfWheels = vehicles.getInt("numberOfWheels");
 		int numberOfSeats = vehicles.getInt("numberOfSeats");
 		int mileage = vehicles.getInt("mileage");
 		int milesPerGallon = vehicles.getInt("milesPerGallon");
@@ -83,7 +103,7 @@ public class HelperFunctions {
 		String wheelDriveType = vehicles.getString("wheelDriveType");
 		String transmissionType = vehicles.getString("transmissionType");
 		
-		Vehicle vehicle = new Vehicle(vin, numberOfDoors, numberOfWheels, numberOfSeats, mileage, milesPerGallon, 
+		Vehicle vehicle = new Vehicle(vin, numberOfDoors, numberOfSeats, mileage, milesPerGallon, 
 				fuelType, newOrUsed, manufacturer, model, year, color, wheelDriveType, transmissionType, auctionID);
 		return vehicle;
 	}
