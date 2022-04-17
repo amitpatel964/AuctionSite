@@ -14,6 +14,11 @@
 			<a href='userHomePage.jsp'>Home Page</a>
 			<a href='logout.jsp'>Log out</a>
 		</div>
-		<%= request.getParameter("idHelper") %>
+		<%= request.getParameter("idHelper") %> <br/>
+		<%
+			int auctionID = Integer.parseInt(request.getParameter("idHelper"));
+			Vehicle vehicle = HelperFunctions.getVehicleFromAuctionID(auctionID);
+		%>
+		<%= vehicle.getVin() %>
 	</body>
 </html>
