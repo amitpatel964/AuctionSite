@@ -23,10 +23,11 @@
 		Creator: <%= auction.getCreator() %> <br/>
 		Initial Price: <%= auction.getInitialPrice() %> <br/>
 		Current Price: <%= auction.getCurrentPrice() %> <br/>
+		Current Highest Bidder: <%= auction.getCurrentHighestBidder() %> <br/>
 		Bid Increment: <%= auction.getBidIncrement() %> <br/>
 		<%
-			String[] starting = auction.getStartingDate().toString().split("T");
-			String[] ending = auction.getEndingDate().toString().split("T");
+			String[] starting = auction.getStartingDateTime().toString().split("T");
+			String[] ending = auction.getEndingDateTime().toString().split("T");
 		%>
 		Starting Date: <%= starting[0] %> <br/>
 		Starting Time: <%= starting[1] %> <br/>
@@ -57,7 +58,14 @@
 		<form action="placeBid.jsp" method="POST">
 			<input type="hidden" name="idHelper" value="<%= auctionID %>"/>
 			<input type="text" name="amount"/> <br/>
-			<input type="submit" value="Place Bid"/>
+			<input type="submit" name="bidButton" value="Place Bid"/>
 		</form>
+		<br/>
+		<form action="placeAutoBid.jsp" method="POST">
+			<input type="hidden" name="idHelper" value="<%= auctionID %>"/>
+			<input type="text" name="amount"/> <br/>
+			<input type="submit" name="bidButton" value="Place Auto Bid"/>
+		</form>
+		<br/>
 	</body>
 </html>

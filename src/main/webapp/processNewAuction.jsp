@@ -94,10 +94,13 @@
 	int amount = amountOfAuctions.getInt(1);
 	auctionID += amount;
 	float currentPrice = initialPrice;
+	float autoBidHighest = 0;
+	String currentHighestBidder = "";
+	String winner = "";
 	
 	statement.executeUpdate("insert into auction values('" + auctionID + "','" + creator + "','" + auctionName + "','" + 
 			initialPrice + "','" + currentPrice + "','" + minimumSellingPrice + "','" + bidIncrement + "','" + vehicleType + "','" + 
-			startingDateTime + "','" + endingDateTime + "')");
+			startingDateTime + "','" + endingDateTime + "','" + autoBidHighest + "','" + currentHighestBidder + "','" + winner + "')");
 	statement.executeUpdate("insert into vehicle values('" + vin + "','" + numberOfDoors + "','" + 
 			numberOfSeats + "','" + mileage + "','" + milesPerGallon + "','" + fuelType + "','" + newOrUsed + "','" + 
 			manufacturer + "','" + model + "','" + year + "','" + color + "','" + wheelDriveType + "','" + transmissionType + "','" + auctionID + "')");

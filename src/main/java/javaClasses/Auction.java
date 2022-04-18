@@ -19,14 +19,16 @@ public class Auction {
 	float currentPrice;
 	float minimumSellingPrice;
 	float bidIncrement;
-	float autoBidUpperLimit;
 	String vehicleType;
 	LocalDateTime startingDateTime;
 	LocalDateTime endingDateTime;
+	float autoBidHighest;
 	String currentHighestBidder = "";
+	String winner;
 	
-	public Auction (int auctionID, String creator, String auctionName, float initialPrice, float currentPrice, float minimumSellingPrice,
-			float bidIncrement, String vehicleType, LocalDateTime startingDateTime, LocalDateTime endingDateTime) {
+	public Auction(int auctionID, String creator, String auctionName, float initialPrice, float currentPrice,
+			float minimumSellingPrice, float bidIncrement, String vehicleType, LocalDateTime startingDateTime,
+			LocalDateTime endingDateTime, float autoBidHighest, String currentHighestBidder, String winner) {
 		this.auctionID = auctionID;
 		this.creator = creator;
 		this.auctionName = auctionName;
@@ -37,57 +39,60 @@ public class Auction {
 		this.vehicleType = vehicleType;
 		this.startingDateTime = startingDateTime;
 		this.endingDateTime = endingDateTime;
-	}
-	
-	public int getAuctionID() {
-		return this.auctionID;
-	}
-	
-	public String getCreator() {
-		return this.creator;
-	}
-	
-	public String getAuctionName() {
-		return this.auctionName;
-	}
-	
-	public float getInitialPrice() {
-		return this.initialPrice;
-	}
-	
-	public float getCurrentPrice() {
-		return this.currentPrice;
-	}
-	
-	public float getMinimumSellingPrice() {
-		return this.minimumSellingPrice;
-	}
-	
-	public float getBidIncrement() {
-		return this.bidIncrement;
-	}
-	
-	public float getAutoBidUpperLimit() {
-		return this.autoBidUpperLimit;
-	}
-	
-	public String getVehicleType() {
-		return this.vehicleType;
-	}
-	
-	public LocalDateTime getStartingDate() {
-		return this.startingDateTime;
-	}
-	
-	public LocalDateTime getEndingDate() {
-		return this.endingDateTime;
-	}
-	
-	public void setCurrentHighestBidder(String currentHighestBidder) {
+		this.autoBidHighest = autoBidHighest;
 		this.currentHighestBidder = currentHighestBidder;
+		this.winner = winner;
 	}
-	
+
+	public int getAuctionID() {
+		return auctionID;
+	}
+
+	public String getCreator() {
+		return creator;
+	}
+
+	public String getAuctionName() {
+		return auctionName;
+	}
+
+	public float getInitialPrice() {
+		return initialPrice;
+	}
+
+	public float getCurrentPrice() {
+		return currentPrice;
+	}
+
+	public float getMinimumSellingPrice() {
+		return minimumSellingPrice;
+	}
+
+	public float getBidIncrement() {
+		return bidIncrement;
+	}
+
+	public String getVehicleType() {
+		return vehicleType;
+	}
+
+	public LocalDateTime getStartingDateTime() {
+		return startingDateTime;
+	}
+
+	public LocalDateTime getEndingDateTime() {
+		return endingDateTime;
+	}
+
+	public float getAutoBidHighest() {
+		return autoBidHighest;
+	}
+
 	public String getCurrentHighestBidder() {
-		return this.currentHighestBidder;
+		return currentHighestBidder;
+	}
+
+	public String getWinner() {
+		return winner;
 	}
 }

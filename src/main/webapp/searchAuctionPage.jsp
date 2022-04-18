@@ -29,7 +29,7 @@
 					Current Price: <%= allAuctions.get(i).getCurrentPrice() %>
 					Bid Increment: <%= allAuctions.get(i).getBidIncrement() %>
 					Vehicle Type: <%= allAuctions.get(i).getVehicleType() %>
-					Ending on: <%= allAuctions.get(i).getEndingDate() %>
+					Ending on: <%= allAuctions.get(i).getEndingDateTime() %>
 				</form>
 				<br/>
 				<%

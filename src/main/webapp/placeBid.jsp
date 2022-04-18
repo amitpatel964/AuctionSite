@@ -3,6 +3,9 @@
 <%@ page import="java.io.*,java.util.*,java.sql.*,java.time.*,java.time.format.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 
+<!-- This file is responsible for processing a regular bid of a user.
+	 The bid must be at least bidIncrement bigger than the current highest bid -->
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -20,7 +23,7 @@
 			int auctionID = Integer.parseInt(request.getParameter("idHelper"));
 			float amount = Float.parseFloat(request.getParameter("amount"));
 			String user = session.getAttribute("user").toString();
-			Auction auction = HelperFunctions.getAuction(auctionID); 
+			Auction auction = HelperFunctions.getAuction(auctionID);
 		%>
 		
 		<form action="showAuctionDetails.jsp" method="POST">
@@ -49,11 +52,19 @@
 			ApplicationDB db = new ApplicationDB();
 			java.sql.Connection con = db.getConnection();
 			
-			String string = "update auction set currentPrice='" + amount + "' where auctionID='" + auctionID + "'";
 			java.sql.Statement statement = con.createStatement();
-			//statement.setString(1,Float.toString(amount));
-			//statement.setString(2,Integer.toString(auctionID));
+			
+			// Check if someone set an auto bid that is higher than the current bid
+			if (auction.getAutoBidHighest() > amount + auction.getBidIncrement()) {
+				out.println("Someone has an auto bid placed. You have been outbid");
+				float newCurrentPrice = amount + auction.getBidIncrement();
+				statement.executeUpdate("update auction set currentPrice='" + newCurrentPrice + "' where auctionID='" + auctionID + "'");
+				return;
+			}
+				
+				
 			statement.executeUpdate("update auction set currentPrice='" + amount + "' where auctionID='" + auctionID + "'");
+			statement.executeUpdate("update auction set currentHighestBidder='" + user + "' where auctionID='" + auctionID + "'");
 			out.println("Bid Placed!");
 			
 			statement.close();

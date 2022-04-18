@@ -42,8 +42,12 @@ public class HelperFunctions {
 			String vehicleType = auctionsSet.getString("vehicleType");
 			LocalDateTime startingDate = auctionsSet.getTimestamp("startingDate").toLocalDateTime();
 			LocalDateTime endingDate = auctionsSet.getTimestamp("endingDate").toLocalDateTime();
+			float autoBidHighest = auctionsSet.getFloat("autoBidHighest");
+			String currentHighestBidder = auctionsSet.getString("currentHighestBidder");
+			String winner = auctionsSet.getString("winner");
 			Auction auctionToAddToList = new Auction(auctionID, creator, auctionName, initialPrice, currentPrice, 
-					minimumSellingPrice, bidIncrement, vehicleType, startingDate, endingDate);
+					minimumSellingPrice, bidIncrement, vehicleType, startingDate, endingDate, autoBidHighest,
+					currentHighestBidder, winner);
 			auctions.add(auctionToAddToList);
 		}
 		

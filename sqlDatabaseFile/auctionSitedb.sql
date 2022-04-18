@@ -36,6 +36,9 @@ CREATE TABLE `auction` (
     `vehicleType` varchar(20) DEFAULT NULL,
     `startingDate` datetime DEFAULT NULL,
     `endingDate` datetime default NULL,
+    `autoBidHighest` float default 0,
+    `currentHighestBidder` varchar(50) default NULL,
+    `winner` varchar(50) default NULL,
     primary key (`auctionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
