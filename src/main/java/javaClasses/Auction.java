@@ -25,7 +25,7 @@ public class Auction {
 	LocalDateTime endingDateTime;
 	String currentHighestBidder = "";
 	
-	public Auction (int auctionID, String creator, String auctionName, float initialPrice, float minimumSellingPrice, float currentPrice,
+	public Auction (int auctionID, String creator, String auctionName, float initialPrice, float currentPrice, float minimumSellingPrice,
 			float bidIncrement, String vehicleType, LocalDateTime startingDateTime, LocalDateTime endingDateTime) {
 		this.auctionID = auctionID;
 		this.creator = creator;

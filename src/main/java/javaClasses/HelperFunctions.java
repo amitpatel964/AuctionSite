@@ -54,7 +54,7 @@ public class HelperFunctions {
 	}
 	
 	/**
-	 * Gets the auction that matches with the given auciton ID
+	 * Gets the auction that matches with the given auction ID
 	 * 
 	 * @param auctionID
 	 * @return auction

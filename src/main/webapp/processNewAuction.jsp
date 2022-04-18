@@ -93,9 +93,10 @@
 	amountOfAuctions.next();
 	int amount = amountOfAuctions.getInt(1);
 	auctionID += amount;
+	float currentPrice = initialPrice;
 	
 	statement.executeUpdate("insert into auction values('" + auctionID + "','" + creator + "','" + auctionName + "','" + 
-			initialPrice + "','" + initialPrice + "','" + minimumSellingPrice + "','" + bidIncrement + "','" + vehicleType + "','" + 
+			initialPrice + "','" + currentPrice + "','" + minimumSellingPrice + "','" + bidIncrement + "','" + vehicleType + "','" + 
 			startingDateTime + "','" + endingDateTime + "')");
 	statement.executeUpdate("insert into vehicle values('" + vin + "','" + numberOfDoors + "','" + 
 			numberOfSeats + "','" + mileage + "','" + milesPerGallon + "','" + fuelType + "','" + newOrUsed + "','" + 

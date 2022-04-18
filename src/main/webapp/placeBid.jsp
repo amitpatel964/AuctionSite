@@ -49,10 +49,11 @@
 			ApplicationDB db = new ApplicationDB();
 			java.sql.Connection con = db.getConnection();
 			
+			String string = "update auction set currentPrice='" + amount + "' where auctionID='" + auctionID + "'";
 			java.sql.Statement statement = con.createStatement();
-			
-			String string = "update auction set currentPrice=? where auctionID=" + auctionID;
-			statement = con.prepareStatement(string);
+			//statement.setString(1,Float.toString(amount));
+			//statement.setString(2,Integer.toString(auctionID));
+			statement.executeUpdate("update auction set currentPrice='" + amount + "' where auctionID='" + auctionID + "'");
 			out.println("Bid Placed!");
 			
 			statement.close();
