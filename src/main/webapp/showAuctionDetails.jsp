@@ -3,6 +3,10 @@
 <%@ page import="java.io.*,java.util.*,java.sql.*,java.time.*,java.time.format.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 <!DOCTYPE html>
+
+<!-- This page generates the details for an auction for a vehicle. Users can place a bid or an auto bid here
+	 In addition, if the user comes to this page from an alert, the alert is then seen and updated accordingly -->
+
 <html>
 	<head>
 		<meta charset="ISO-8859-1">
@@ -16,9 +20,23 @@
 		</div>
 		<br/>
 		<%
+			// Check to see if any open auctions should be ending
+			HelperFunctions.checkIfAnyAuctionHasEnded();
+			
 			int auctionID = Integer.parseInt(request.getParameter("idHelper"));
 			Auction auction = HelperFunctions.getAuction(auctionID);
 		%>
+		
+		<%
+		// Check to see if the user has any alerts for this auction.
+		// If they do, they were seen and do not need to be displayed again
+		ApplicationDB db = new ApplicationDB();
+		java.sql.Connection con = db.getConnection();
+		
+		java.sql.Statement statement = con.createStatement();
+		statement.executeUpdate("update alertForBidOrWinner set wasSeen='yes' where auctionID='"+auctionID+"' and username='"+session.getAttribute("user")+"'");
+		%>
+		
 		Name: <%= auction.getAuctionName() %> <br/>
 		Creator: <%= auction.getCreator() %> <br/>
 		Initial Price: <%= auction.getInitialPrice() %> <br/>
@@ -33,6 +51,12 @@
 		Starting Time: <%= starting[1] %> <br/>
 		Ending Date: <%= ending[0] %> <br/>
 		Ending Time: <%= ending[1] %> <br/>
+		<%
+			LocalDateTime currentTime = LocalDateTime.now();
+			if (currentTime.isBefore(auction.getEndingDateTime())) {
+				out.println("open");
+			}
+		%>
 		<br/>
 		
 		Auction for: 

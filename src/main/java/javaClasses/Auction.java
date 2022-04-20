@@ -12,23 +12,24 @@ import java.time.LocalDateTime;
  */
 
 public class Auction {
-	int auctionID;
-	String creator;
-	String auctionName;
-	float initialPrice;
-	float currentPrice;
-	float minimumSellingPrice;
-	float bidIncrement;
-	String vehicleType;
-	LocalDateTime startingDateTime;
-	LocalDateTime endingDateTime;
-	float autoBidHighest;
-	String currentHighestBidder = "";
-	String winner;
+	private int auctionID;
+	private String creator;
+	private String auctionName;
+	private float initialPrice;
+	private float currentPrice;
+	private float minimumSellingPrice;
+	private float bidIncrement;
+	private String vehicleType;
+	private LocalDateTime startingDateTime;
+	private LocalDateTime endingDateTime;
+	private float autoBidHighest;
+	private String currentHighestBidder = "";
+	private String winner;
+	private String status;
 	
 	public Auction(int auctionID, String creator, String auctionName, float initialPrice, float currentPrice,
 			float minimumSellingPrice, float bidIncrement, String vehicleType, LocalDateTime startingDateTime,
-			LocalDateTime endingDateTime, float autoBidHighest, String currentHighestBidder, String winner) {
+			LocalDateTime endingDateTime, float autoBidHighest, String currentHighestBidder, String winner, String status) {
 		this.auctionID = auctionID;
 		this.creator = creator;
 		this.auctionName = auctionName;
@@ -42,6 +43,7 @@ public class Auction {
 		this.autoBidHighest = autoBidHighest;
 		this.currentHighestBidder = currentHighestBidder;
 		this.winner = winner;
+		this.status = status;
 	}
 
 	public int getAuctionID() {
@@ -94,5 +96,9 @@ public class Auction {
 
 	public String getWinner() {
 		return winner;
+	}
+	
+	public String getStatus() {
+		return status;
 	}
 }

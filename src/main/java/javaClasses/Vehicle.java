@@ -9,20 +9,20 @@ package javaClasses;
  */
 
 public class Vehicle {
-	int vin;
-	int numberOfDoors;
-	int numberOfSeats;
-	int mileage;
-	int milesPerGallon;
-	String fuelType;
-	String newOrUsed;
-	String manufacturer;
-	String model;
-	int year;
-	String color;
-	String wheelDriveType;
-	String transmissionType;
-	int auctionID;
+	private int vin;
+	private int numberOfDoors;
+	private int numberOfSeats;
+	private int mileage;
+	private int milesPerGallon;
+	private String fuelType;
+	private String newOrUsed;
+	private String manufacturer;
+	private String model;
+	private int year;
+	private String color;
+	private String wheelDriveType;
+	private String transmissionType;
+	private int auctionID;
 	
 	public Vehicle(int vin, int numberOfDoors, int numberOfSeats, int mileage, int milesPerGallon,
 			String fuelType, String newOrUsed, String manufacturer, String model, int year, String color,

@@ -64,6 +64,12 @@
 				
 				
 			statement.executeUpdate("update auction set currentPrice='" + amount + "' where auctionID='" + auctionID + "'");
+			
+			String currentHighestBidder = auction.getCurrentHighestBidder();
+			if (!currentHighestBidder.equals("")) {
+				statement.executeUpdate("insert into alertForBidOrWinner values('outbid','"+currentHighestBidder+"','"+auctionID+"','no')");
+			}
+			
 			statement.executeUpdate("update auction set currentHighestBidder='" + user + "' where auctionID='" + auctionID + "'");
 			out.println("Bid Placed!");
 			

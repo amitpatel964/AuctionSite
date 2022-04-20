@@ -40,6 +40,7 @@
 	String wheelDriveType = request.getParameter("wheelDriveType");
 	String transmissionType = request.getParameter("tranmissionType");
 	
+	// Make sure fields are filled in properly
 	try {
 		vin = Integer.parseInt(request.getParameter("vin"));
 		numberOfDoors = Integer.parseInt(request.getParameter("numberOfDoors"));
@@ -92,15 +93,23 @@
 	ResultSet amountOfAuctions = statement.executeQuery("select count(*) from auction");
 	amountOfAuctions.next();
 	int amount = amountOfAuctions.getInt(1);
-	auctionID += amount;
+	if (amount > 0) {
+		ResultSet maxIDSearch = statement.executeQuery("select MAX(auctionID) AS biggest from auction");
+		maxIDSearch.next();
+		int maxID = maxIDSearch.getInt(1);
+		auctionID += amount;
+	}
+	
+	// Placeholder values. These columns will be filled in as people put in bids.
 	float currentPrice = initialPrice;
 	float autoBidHighest = 0;
 	String currentHighestBidder = "";
 	String winner = "";
+	String status = "open";
 	
 	statement.executeUpdate("insert into auction values('" + auctionID + "','" + creator + "','" + auctionName + "','" + 
 			initialPrice + "','" + currentPrice + "','" + minimumSellingPrice + "','" + bidIncrement + "','" + vehicleType + "','" + 
-			startingDateTime + "','" + endingDateTime + "','" + autoBidHighest + "','" + currentHighestBidder + "','" + winner + "')");
+			startingDateTime + "','" + endingDateTime + "','" + autoBidHighest + "','" + currentHighestBidder + "','" + winner + "','" + status + "')");
 	statement.executeUpdate("insert into vehicle values('" + vin + "','" + numberOfDoors + "','" + 
 			numberOfSeats + "','" + mileage + "','" + milesPerGallon + "','" + fuelType + "','" + newOrUsed + "','" + 
 			manufacturer + "','" + model + "','" + year + "','" + color + "','" + wheelDriveType + "','" + transmissionType + "','" + auctionID + "')");

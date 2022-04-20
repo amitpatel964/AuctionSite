@@ -39,6 +39,7 @@ CREATE TABLE `auction` (
     `autoBidHighest` float default 0,
     `currentHighestBidder` varchar(50) default NULL,
     `winner` varchar(50) default NULL,
+    `status` varchar(10) default NULL,
     primary key (`auctionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -61,5 +62,76 @@ CREATE TABLE `vehicle` (
     `transmissionType` varchar(50) DEFAULT NULL,
     `auctionID` int DEFAULT 0,
     primary key (`vin`),
+    foreign key(`auctionID`) references `auction`(`auctionID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `car`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `car` (
+	`typeOfCar` varchar(10) DEFAULT NULL,
+    `isConvertible` varchar(5) DEFAULT NULL,
+    `vin` int DEFAULT 0,
+    foreign key(`vin`) references `vehicle`(`vin`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `suv`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `suv` (
+	`seatsExpandable` varchar(5) DEFAULT NULL,
+    `vin` int DEFAULT 0,
+    foreign key(`vin`) references `vehicle`(`vin`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `van`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `van` (
+	`vanMiniOrFull` varchar(10) DEFAULT NULL,
+    `vin` int DEFAULT 0,
+    foreign key(`vin`) references `vehicle`(`vin`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `truck`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `truck` (
+	`isPickUpTruck` varchar(5) DEFAULT NULL,
+    `numberOfWheels` int DEFAULT 0,
+    `vin` int DEFAULT 0,
+    foreign key(`vin`) references `vehicle`(`vin`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `motorcycle`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `motorcycle` (
+	`hasStorage` varchar(5) DEFAULT NULL,
+    `typeOfMotorCycle` varchar(50) DEFAULT NULL,
+    `vin` int DEFAULT 0,
+    foreign key(`vin`) references `vehicle`(`vin`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `alertForBidOrWinner`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `alertForBidOrWinner` (
+	`alertType` varchar(20) DEFAULT NULL,
+    `username` varchar(50) DEFAULT NULL,
+    `auctionID` int DEFAULT 0,
+    `wasSeen` varchar(5) DEFAULT NULL,
+    foreign key(`username`) references `userLogin`(`username`),
+    foreign key(`auctionID`) references `auction`(`auctionID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE If EXISTS `alertNotifyIfOutbid`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `alertNotifyIfOutbid` (
+	`shouldNotify` varchar(5) DEFAULT NULL,
+    `username` varchar(50) DEFAULT NULL,
+    `auctionID` int DEFAULT 0,
+    foreign key(`username`) references `userLogin`(`username`),
     foreign key(`auctionID`) references `auction`(`auctionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

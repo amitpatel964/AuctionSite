@@ -16,6 +16,8 @@
 		</div>
 		
 		<%
+			// Check to see if any open auctions should be ending
+			HelperFunctions.checkIfAnyAuctionHasEnded();
 			List<Auction> allAuctions = HelperFunctions.getListOfAuctions();
 			
 			for (int i = 0; i < allAuctions.size(); i++) {

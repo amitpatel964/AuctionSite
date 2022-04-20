@@ -77,6 +77,12 @@
 		float initialBid = currentPrice + bidIncrement;
 		
 		statement.executeUpdate("update auction set currentPrice='" + initialBid + "' where auctionID='" + auctionID + "'");
+		
+		String currentHighestBidder = auction.getCurrentHighestBidder();
+		if (!currentHighestBidder.equals("")) {
+			statement.executeUpdate("insert into alertForBidOrWinner values('outbid','"+currentHighestBidder+"','"+auctionID+"','no')");
+		}
+		
 		statement.executeUpdate("update auction set currentHighestBidder='" + user + "' where auctionID='" + auctionID + "'");
 		statement.executeUpdate("update auction set autoBidHighest='" + amount + "' where auctionID='" + auctionID + "'");
 		out.println("Bid Placed!");
