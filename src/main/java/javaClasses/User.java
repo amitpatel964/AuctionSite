@@ -41,5 +41,24 @@ public class User {
 		return password;
 	}
 	
+	public void setId(int i) {
+		this.id = i;
+	}
+	
+	public void setFirstName(String f) {
+		this.firstName = f;
+	}
+	
+	public void setLastName(String l) {
+		this.lastName = l;
+	}
+	
+	public void setEmail(String e) {
+		this.email = e;
+	}
+	
+	public void setPassword(String pw) {
+		this.password = pw;
+	}
 	
 }
