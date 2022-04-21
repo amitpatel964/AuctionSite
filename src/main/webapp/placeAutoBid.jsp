@@ -58,11 +58,16 @@
 		
 		java.sql.Statement statement = con.createStatement();
 		
+		float amountForHistory = currentPrice + bidIncrement;
+		
+		statement.executeUpdate("insert into auctionBidHistory values('"+auctionID+"','"+user+"','"+amountForHistory+"','"+LocalDateTime.now()+"')");
+		
 		// Check if someone set an auto bid that is higher than the current bid
 		if (autoBidHighest > amount + bidIncrement) {
 			out.println("Someone has an auto bid placed. You have been outbid");
 			float newCurrentPrice = amount + bidIncrement;
 			statement.executeUpdate("update auction set currentPrice='" + newCurrentPrice + "' where auctionID='" + auctionID + "'");
+			statement.executeUpdate("insert into auctionBidHistory values('"+auctionID+"','"+auction.getCurrentHighestBidder()+"','"+newCurrentPrice+"','"+LocalDateTime.now()+"')");
 			%>
 			<input type="submit" value="Go back"/>
 			<%
@@ -79,8 +84,9 @@
 		
 		statement.executeUpdate("update auction set currentPrice='" + initialBid + "' where auctionID='" + auctionID + "'");
 		
+		// Send out an update if needed
 		String currentHighestBidder = auction.getCurrentHighestBidder();
-		if (!currentHighestBidder.equals("")) {
+		if (!currentHighestBidder.equals("") && !currentHighestBidder.equals(user)) {
 			statement.executeUpdate("insert into alertForBidOrWinner values('outbid','"+currentHighestBidder+"','"+auctionID+"','no')");
 		}
 		

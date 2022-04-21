@@ -43,6 +43,18 @@ CREATE TABLE `auction` (
     primary key (`auctionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+DROP TABLE IF EXISTS `auctionBidHistory`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auctionBidHistory` (
+	`auctionID` int DEFAULT 0,
+	`username` varchar(50) DEFAULT NULL,
+    `bidAmount` float DEFAULT 0,
+    `bidDateTime` datetime DEFAULT NULL,
+    foreign key(`username`) references `userLogin`(`username`),
+    foreign key(`auctionID`) references `auction`(`auctionID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 DROP TABLE IF EXISTS `vehicle`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;

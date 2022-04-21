@@ -116,6 +116,10 @@ public class HelperFunctions {
 		
 		Vehicle vehicle = new Vehicle(vin, numberOfDoors, numberOfSeats, mileage, milesPerGallon, 
 				fuelType, newOrUsed, manufacturer, model, year, color, wheelDriveType, transmissionType, auctionID);
+		
+		statement.close();
+		con.close();
+		
 		return vehicle;
 	}
 	
@@ -146,6 +150,9 @@ public class HelperFunctions {
 			alertsForUser.add(alertToAdd);
 		}
 		
+		statement.close();
+		con.close();
+		
 		return alertsForUser;
 	}
 	
@@ -170,12 +177,85 @@ public class HelperFunctions {
 				java.sql.Statement statement = con.createStatement();
 				statement.executeUpdate("update auction set status = 'closed' where auctionID='"+currentAuction.getAuctionID()+"'");
 				
+				String winner = "";
+				
 				// Check to see if there is a winner
 				if (currentAuction.getCurrentPrice() > currentAuction.getMinimumSellingPrice() && !currentAuction.getCurrentHighestBidder().equals("")) {
+					winner = currentAuction.getCurrentHighestBidder();
 					statement.executeUpdate("update auction set winner = '"+currentAuction.getCurrentHighestBidder()+"' where auctionID='"+currentAuction.getAuctionID()+"'");
 					statement.executeUpdate("insert into alertForBidOrWinner values('auctionWinner','"+currentAuction.getCurrentHighestBidder()+"','"+currentAuction.getAuctionID()+"','no')");
 				}
+				
+				// Send out an alert to the other bidders that they lost the auction
+				List<String> bidders = new ArrayList<>();
+				bidders = getListOfBiddersForAuction(currentAuction.getAuctionID());
+				
+				for (int j = 0; j < bidders.size(); j++) {
+					String currentBidder = bidders.get(j);
+					if (!currentBidder.equals(winner)) {
+						statement.executeUpdate("insert into alertForBidOrWinner values('auctionLost','"+currentBidder+"','"+currentAuction.getAuctionID()+"','no')");
+					}
+				}
+				
 			}
 		}
+	}
+	
+	/**
+	 * This method is used to help build the bid history for a certain auction given an auctionID.
+	 * 
+	 * @param auctionID
+	 * @return
+	 * @throws SQLException
+	 */
+	public static List<BidHistory> getBidHistoryForAuction(int auctionID) throws SQLException {
+		List<BidHistory> history = new ArrayList<>();
+		
+		ApplicationDB db = new ApplicationDB();
+		java.sql.Connection con = db.getConnection();
+		
+		java.sql.Statement statement = con.createStatement();
+	
+		ResultSet bids = statement.executeQuery("select * from auctionBidHistory where auctionID ='" + auctionID + "'");
+		
+		while(bids.next()) {
+			String username = bids.getString("username");
+			float bidAmount = bids.getFloat("bidAmount");
+			LocalDateTime bidDateTime = bids.getTimestamp("bidDateTime").toLocalDateTime();
+			BidHistory toAddToList = new BidHistory(auctionID,username,bidAmount,bidDateTime);
+			history.add(toAddToList);
+		}
+		
+		statement.close();
+		con.close();
+		
+		return history;
+	}
+	
+	/**
+	 * This method will return the list of unique bidders for an auction given an auctionID
+	 * 
+	 * @param auctionID
+	 * @return	A list of usernames as strings
+	 * @throws SQLException
+	 */
+	public static List<String> getListOfBiddersForAuction(int auctionID) throws SQLException {
+		List<String> bidders = new ArrayList<>();
+		
+		ApplicationDB db = new ApplicationDB();
+		java.sql.Connection con = db.getConnection();
+		
+		java.sql.Statement statement = con.createStatement();
+		
+		ResultSet users = statement.executeQuery("select distinct(username) from auctionBidHistory where auctionID ='" + auctionID + "'");
+		
+		while(users.next()) {
+			bidders.add(users.getString("username"));
+		}
+		
+		statement.close();
+		con.close();
+		
+		return bidders;
 	}
 }

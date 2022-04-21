@@ -53,12 +53,17 @@ From here, the user is able to create an auction, search of an auction, and view
 							out.println("You have been outbid in the auction for " + currentAlert.getAuctionID());
 							out.println("Click the button below to go to the auction"); %>
 							<input type="hidden" name="idHelper" value="<%= currentAlert.getAuctionID() %>"/>
-							<input type="submit" value="Go to auction"/> <%
+							<input type="submit" value="Go to auction"/> <br/> <%
 						} else if (currentAlert.getAlertType().equals("auctionWinner")) {
 							out.println("Congratulations, you won the auction for " + currentAlert.getAuctionID());
 							out.println("Click the button below to go to the auction"); %>
 							<input type="hidden" name="idHelper" value="<%= currentAlert.getAuctionID() %>"/>
-							<input type="submit" value="Go to auction"/> <%	
+							<input type="submit" value="Go to auction"/> <br/> <%
+						} else if (currentAlert.getAlertType().equals("auctionLost")) {
+							out.println("Unfortunately, you lost the auction for " + currentAlert.getAuctionID());
+							out.println("Click the button below to go to the auction"); %>
+							<input type="hidden" name="idHelper" value="<%= currentAlert.getAuctionID() %>"/>
+							<input type="submit" value="Go to auction"/> <br/> <%	
 						}
 					}
 				}

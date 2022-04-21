@@ -78,13 +78,21 @@
 		Transmission: <%= vehicle.getTransmissionType() %> <br/>
 		<br/>
 		
-		Place bid: 
+		View Bid History:
+		<form action="showAuctionBidHistory.jsp" method="POST">
+			<input type="hidden" name="idHelper" value="<%= auctionID %>"/>
+			<input type="submit" value="Go to Bid History"/>
+		</form>
+		<br/>
+		
+		Place Bid: 
 		<form action="placeBid.jsp" method="POST">
 			<input type="hidden" name="idHelper" value="<%= auctionID %>"/>
 			<input type="text" name="amount"/> <br/>
 			<input type="submit" name="bidButton" value="Place Bid"/>
 		</form>
 		<br/>
+		Place Auto Bid:
 		<form action="placeAutoBid.jsp" method="POST">
 			<input type="hidden" name="idHelper" value="<%= auctionID %>"/>
 			<input type="text" name="amount"/> <br/>
