@@ -4,6 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * This class handles connecting with the SQL database.
+ *
+ */
+
 public class ApplicationDB {
 	
 	public ApplicationDB(){

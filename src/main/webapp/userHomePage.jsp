@@ -35,6 +35,7 @@ From here, the user is able to create an auction, search of an auction, and view
 			</p>
 			<input type="submit" value="Search Auctions"/>
 		</form>
+		
 		<h1>Alerts</h1><br/>
 		<form action="showAuctionDetails.jsp" method="POST">
 			<%

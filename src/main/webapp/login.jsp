@@ -3,6 +3,8 @@
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 
+<!-- This is the first page a user should be starting at. They need to login or register. -->
+
 <!DOCTYPE html>
 <html>
 	<head>

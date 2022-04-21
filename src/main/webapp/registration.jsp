@@ -3,6 +3,9 @@
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 
+<!-- This page handles the process of registration of a new user.
+	 If there are any problems, the user is directed back to the register page. -->
+
 <%
 	String username = request.getParameter("username");
 	String email = request.getParameter("email");

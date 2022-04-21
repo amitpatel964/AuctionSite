@@ -4,7 +4,8 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 
 <!-- This file is responsible for processing a auto bid of a user.
-	 The bid must be at least bidIncrement bigger than the current highest bid -->
+	 The bid must be at least bidIncrement bigger than the current highest bid.
+	 The user cannot bid on their own auction -->
 
 <!DOCTYPE html>
 <html>

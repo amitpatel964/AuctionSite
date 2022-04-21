@@ -10,7 +10,13 @@ import java.util.List;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 
-// All helper functions are in this class
+/**
+ * This class contains all helper functions that are used throughout various files in the project.
+ * All methods should be static in this class.
+ * 
+ * @author Amit
+ *
+ */
 
 public class HelperFunctions {
 	
@@ -152,8 +158,8 @@ public class HelperFunctions {
 	 */
 	public static void checkIfAnyAuctionHasEnded() throws SQLException {
 		// TODO when bidding history is made for an auction, send out alerts to those that have lost
-		
-		List<Auction> auctions = getListOfAuctions();
+		List<Auction> auctions = new ArrayList<>();
+		auctions = getListOfAuctions();
 		
 		for (int i = 0; i < auctions.size(); i++) {
 			Auction currentAuction = auctions.get(i);
@@ -165,7 +171,7 @@ public class HelperFunctions {
 				statement.executeUpdate("update auction set status = 'closed' where auctionID='"+currentAuction.getAuctionID()+"'");
 				
 				// Check to see if there is a winner
-				if (currentAuction.getCurrentPrice() > currentAuction.getMinimumSellingPrice()) {
+				if (currentAuction.getCurrentPrice() > currentAuction.getMinimumSellingPrice() && !currentAuction.getCurrentHighestBidder().equals("")) {
 					statement.executeUpdate("update auction set winner = '"+currentAuction.getCurrentHighestBidder()+"' where auctionID='"+currentAuction.getAuctionID()+"'");
 					statement.executeUpdate("insert into alertForBidOrWinner values('auctionWinner','"+currentAuction.getCurrentHighestBidder()+"','"+currentAuction.getAuctionID()+"','no')");
 				}

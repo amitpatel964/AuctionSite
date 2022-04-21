@@ -2,6 +2,9 @@
     pageEncoding="ISO-8859-1" import="javaClasses.*"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*,java.time.*,java.time.format.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
+
+<!-- This file shows all of the auctions created at the time of the search. -->
+
 <!DOCTYPE html>
 <html>
 	<head>

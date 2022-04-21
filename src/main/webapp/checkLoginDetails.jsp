@@ -3,6 +3,8 @@
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 
+<!-- This file verifies that the login information that the user entered is in the database. -->
+
 <%
 	String username = request.getParameter("username");
 	String password = request.getParameter("password");

@@ -3,6 +3,10 @@
 <%@ page import="java.io.*,java.util.*,java.sql.*,java.time.*,java.time.format.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 
+<!-- Thie file handles processing a new auction for the user.
+	 If all of the information was filled in properly, the auction is created.
+	 Otherwise, the user is directed back to fill in the relevant information. -->
+
 <%
 	String auctionName = request.getParameter("auctionName");
 	String initialPriceString = request.getParameter("initialPrice");

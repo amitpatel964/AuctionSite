@@ -2,6 +2,8 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 
+<!-- Login was successful, the user is directed to go to their home page. -->
+
 <html>
 	<head>
 		<meta charset="ISO-8859-1">

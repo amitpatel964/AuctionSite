@@ -37,6 +37,7 @@
 				Ending Time: <input type="text" name="endingTime"/> <br/>
 				<br/>
 				
+				<!-- Enter information for the vehicle -->
 				Vehicle details <br/>
 				VIN (Vehicle Identification Number): <input type="text" name="vin"/> <br/>
 				Number of doors: <input type="text" name="numberOfDoors"/> <br/>
