@@ -4,7 +4,8 @@ public class User {
 
 	/**
 	 * This class represents a user.
-	 * Each user has a unique id and email. First and last are not distinct.
+	 * Each user has a unique id and email.
+	 * One user can have the status of Admin. Admin appoints Customer Representatives.
 	 */
 	
 	private int id;
@@ -12,13 +13,17 @@ public class User {
 	private String lastName;
 	private String password;
 	private String email;
+	private boolean custRep;
+	private boolean admin;
 	
-	public User(int id, String firstName, String lastName, String password, String email) {
+	public User(int id, String firstName, String lastName, String password, String email, boolean cr, boolean ad) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
 		this.email = email;
+		custRep = cr;
+		admin = ad;
 	}
 	
 	public int getId() {
@@ -59,6 +64,22 @@ public class User {
 	
 	public void setPassword(String pw) {
 		this.password = pw;
+	}
+	
+	public boolean getCustRep() {
+		return custRep;
+	}
+	
+	public void setCustRep(boolean c) {
+		this.custRep = c;
+	}
+	
+	public boolean getAdmin(){
+		return admin;
+	}
+	
+	public void setAdmin(boolean a) {
+		this.admin = a;
 	}
 	
 }
