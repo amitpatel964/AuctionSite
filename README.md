@@ -2,8 +2,8 @@
 
 Checklist
 
-I. Auctions__ 
- [X] seller creates auctions and posts items for sale 
+I. Auctions <br/>
+ [X] seller creates auctions and posts items for sale
     [X] set all the characteristics of the item 
     [X] set closing date and time 
     [X] set a hidden minimum price (reserve) 
