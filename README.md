@@ -2,7 +2,7 @@
 
 Checklist
 
-I. Auctions 
+I. Auctions__ 
  [X] seller creates auctions and posts items for sale 
     [X] set all the characteristics of the item 
     [X] set closing date and time 
