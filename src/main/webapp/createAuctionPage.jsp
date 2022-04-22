@@ -26,9 +26,10 @@
 				Bid Increment: <input type="text" name="bidIncrement"/> <br/>
 				Vehicle Type: 
 				<input type="radio" name="vehicleType" value="Car" checked="checked"/>Car
-				<input type="radio" name="vehicleType" value="SUV"/>SUV
-				<input type="radio" name="vehicleType" value="Truck"/>Truck
+				<input type="radio" name="vehicleType" value="Suv"/>Suv
 				<input type="radio" name="vehicleType" value="Van"/>Van
+				<input type="radio" name="vehicleType" value="Truck"/>Truck
+				<input type="radio" name="vehicleType" value="Motorcycle"/>Motorcycle
 				<br/>
 				Please format the date like this: YYYY-MM-DD
 				Ending Date: <input type="text" name="endingDate"/> <br/>
@@ -57,15 +58,50 @@
 				Model: <input type="text" name="model"/> <br/>
 				Year: <input type="text" name="year"/> <br/>
 				Color: <input type="text" name="color"/> <br/>
-				Wheel Drive Type:
-				<input type="radio" name="wheelDriveType" value="Forward Wheel Drive" checked="checked"/>Forward Wheel Drive
-				<input type="radio" name="wheelDriveType" value="Rear Wheel Drive"/>Rear Wheel Drive
-				<input type="radio" name="wheelDriveType" value="Four Wheel Drive"/>Four Wheel Drive
-				<input type="radio" name="wheelDriveType" value="All Wheel Drive"/>All Wheel Drive
-				<br/>
 				Transmission Type:
 				<input type="radio" name=tranmissionType value="Automatic" checked="checked"/>Automatic
 				<input type="radio" name=tranmissionType value="Manual"/>Manual
+				<br/>
+				<br/>
+				<!-- Additional details for cars -->
+				Car Details: <br/>
+				Type of Car: <input type="radio" name="typeOfCar" value="Sedan" checked="checked"/>Sedan
+				<input type="radio" name="typeOfCar" value="Coupe"/>Coupe
+				<input type="radio" name="typeOfCar" value="Hatchback"/>Hatchback
+				<input type="radio" name="typeOfCar" value="Station Wagon"/>Station Wagon
+				<input type="radio" name="typeOfCar" value="Sports"/>Sports
+				<input type="radio" name="typeOfCar" value="Other"/>Other <br/>
+				Is your car a convertible? <input type="radio" name="isConvertible" value="Yes"/>Yes
+				<input type="radio" name="isConvertible" value="No" checked="checked"/>No
+				<br/>
+				<br/>
+				<!-- Additional details for suvs -->
+				SUV Details: <br/>
+				Can you add more seats to your SUV? <input type="radio" name="seatsExpandable" value="Yes"/>Yes
+				<input type="radio" name="seatsExpandable" value="No" checked="checked"/>No
+				<br/>
+				<br/>
+				<!-- Additional details for vans -->
+				Van Details: <br/>
+				Is your van a minivan or a full van? <input type="radio" name="vanMiniOrFull" value="Mini" checked="checked"/>Mini
+				<input type="radio" name="vanMiniOrFull" value="Full"/>Full
+				<br/>
+				<br/>
+				<!-- Additional details for trucks -->
+				Truck Details: <br/>
+				Is your a pickup truck? <input type="radio" name="isPickUpTruck" value="Yes"/>Yes
+				<input type="radio" name="isPickUpTruck" value="No" checked="checked"/>No <br/>
+				Number of Wheels: <input type="text" name="numberOfWheels"/> 
+				<br/>
+				<br/>
+				<!-- Additional details for Motorcycles -->
+				Motorcycle Details: <br/>
+				Has storage? <input type="radio" name="hasStorage" value="Yes"/>Yes
+				<input type="radio" name="hasStorage" value="No" checked="checked"/>No <br/>
+				Type of Motorcycle: <input type="radio" name="typeOfMotorCycle" value="Standard"/>Standard
+				<input type="radio" name="typeOfMotorCycle" value="Cruiser"/>Cruiser
+				<input type="radio" name="typeOfMotorCycle" value="Sport"/>Sport
+				<input type="radio" name="typeOfMotorCycle" value="Other"/>Other <br/>
 				<br/>
 				<br/>
 				<input type="submit" value="Create Auction"/>

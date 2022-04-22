@@ -111,11 +111,10 @@ public class HelperFunctions {
 		String model = vehicles.getString("model");
 		int year = vehicles.getInt("year");
 		String color = vehicles.getString("color");
-		String wheelDriveType = vehicles.getString("wheelDriveType");
 		String transmissionType = vehicles.getString("transmissionType");
 		
 		Vehicle vehicle = new Vehicle(vin, numberOfDoors, numberOfSeats, mileage, milesPerGallon, 
-				fuelType, newOrUsed, manufacturer, model, year, color, wheelDriveType, transmissionType, auctionID);
+				fuelType, newOrUsed, manufacturer, model, year, color, transmissionType, auctionID);
 		
 		statement.close();
 		con.close();
@@ -257,5 +256,133 @@ public class HelperFunctions {
 		con.close();
 		
 		return bidders;
+	}
+	
+	/**
+	 * Gets car specific details from a vin if that vehicle is a car
+	 * 
+	 * @param vin
+	 * @return Car details as a Car class
+	 * @throws SQLException
+	 */
+	public static Car getCarFromVin(int vin) throws SQLException {
+		ApplicationDB db = new ApplicationDB();
+		java.sql.Connection con = db.getConnection();
+		
+		java.sql.Statement statement = con.createStatement();
+		
+		ResultSet carResult = statement.executeQuery("select * from car where vin ='" + vin + "'");
+		carResult.next();
+		String typeOfCar = carResult.getString("typeOfCar");
+		String isConvertible = carResult.getString("isConvertible");
+		
+		Car car = new Car(typeOfCar, isConvertible, vin);
+		
+		statement.close();
+		con.close();
+		
+		return car;
+	}
+	
+	/**
+	 * Gets suv specific details from a vin if that vehicle is an suv
+	 * 
+	 * @param vin
+	 * @return Suv details as an Suv class
+	 * @throws SQLException
+	 */
+	public static Suv getSuvFromVin(int vin) throws SQLException {
+		ApplicationDB db = new ApplicationDB();
+		java.sql.Connection con = db.getConnection();
+		
+		java.sql.Statement statement = con.createStatement();
+		
+		ResultSet suvResult = statement.executeQuery("select * from suv where vin ='" + vin + "'");
+		suvResult.next();
+		String seatsExpandable = suvResult.getString("seatsExpandable");
+		
+		Suv suv = new Suv(seatsExpandable, vin);
+		
+		statement.close();
+		con.close();
+		
+		return suv;
+	}
+	
+	/**
+	 * Gets van specific details from a vin if that vehicle is a van
+	 * 
+	 * @param vin
+	 * @return Van details as an Van class
+	 * @throws SQLException
+	 */
+	public static Van getVanFromVin(int vin) throws SQLException {
+		ApplicationDB db = new ApplicationDB();
+		java.sql.Connection con = db.getConnection();
+		
+		java.sql.Statement statement = con.createStatement();
+		
+		ResultSet vanResult = statement.executeQuery("select * from van where vin ='" + vin + "'");
+		vanResult.next();
+		String vanMiniOrFull = vanResult.getString("vanMiniOrFull");
+		
+		Van van = new Van(vanMiniOrFull, vin);
+		
+		statement.close();
+		con.close();
+		
+		return van;
+	}
+	
+	/**
+	 * Gets truck specific details from a vin if that vehicle is a truck
+	 * 
+	 * @param vin
+	 * @return Truck details as a Truck class
+	 * @throws SQLException
+	 */
+	public static Truck getTruckFromVin(int vin) throws SQLException {
+		ApplicationDB db = new ApplicationDB();
+		java.sql.Connection con = db.getConnection();
+		
+		java.sql.Statement statement = con.createStatement();
+		
+		ResultSet truckResult = statement.executeQuery("select * from truck where vin ='" + vin + "'");
+		truckResult.next();
+		String isPickUpTruck = truckResult.getString("isPickUpTruck");
+		int numberOfWheels = truckResult.getInt("numberOfWheels");
+		
+		Truck truck = new Truck(isPickUpTruck, numberOfWheels, vin);
+		
+		statement.close();
+		con.close();
+		
+		return truck;
+	}
+	
+	/**
+	 * Gets motorcycle specific details from a vin if that vehicle is a motorcycle
+	 * 
+	 * @param vin
+	 * @return Motorcycle details as a Motorcycle class
+	 * @throws SQLException
+	 */
+	public static Motorcycle getMotorcycleFromVin(int vin) throws SQLException {
+		ApplicationDB db = new ApplicationDB();
+		java.sql.Connection con = db.getConnection();
+		
+		java.sql.Statement statement = con.createStatement();
+		
+		ResultSet carResult = statement.executeQuery("select * from motorcycle where vin ='" + vin + "'");
+		carResult.next();
+		String hasStorage = carResult.getString("hasStorage");
+		String typeOfMotorCycle = carResult.getString("typeOfMotorCycle");
+		
+		Motorcycle motorcycle = new Motorcycle(hasStorage, typeOfMotorCycle, vin);
+		
+		statement.close();
+		con.close();
+		
+		return motorcycle;
 	}
 }

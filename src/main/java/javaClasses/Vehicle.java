@@ -1,7 +1,7 @@
 package javaClasses;
 
 /**
- * This class represents a vehicle. A vehicle can be a car, truck, van or suv.
+ * This class represents a vehicle. A vehicle can be a car, truck, van, motorcycle or suv.
  * auctionID is also included to help associate the vehicle with an auction.
  * 
  * @author Amit
@@ -20,13 +20,12 @@ public class Vehicle {
 	private String model;
 	private int year;
 	private String color;
-	private String wheelDriveType;
 	private String transmissionType;
 	private int auctionID;
 	
 	public Vehicle(int vin, int numberOfDoors, int numberOfSeats, int mileage, int milesPerGallon,
 			String fuelType, String newOrUsed, String manufacturer, String model, int year, String color,
-			String wheelDriveType, String transmissionType, int auctionID) {
+			String transmissionType, int auctionID) {
 		this.vin = vin;
 		this.numberOfDoors = numberOfDoors;
 		this.numberOfSeats = numberOfSeats;
@@ -38,7 +37,6 @@ public class Vehicle {
 		this.model = model;
 		this.year = year;
 		this.color = color;
-		this.wheelDriveType = wheelDriveType;
 		this.transmissionType = transmissionType;
 		this.auctionID = auctionID;
 	}
@@ -85,10 +83,6 @@ public class Vehicle {
 
 	public String getColor() {
 		return color;
-	}
-
-	public String getWheelDriveType() {
-		return wheelDriveType;
 	}
 
 	public String getTransmissionType() {

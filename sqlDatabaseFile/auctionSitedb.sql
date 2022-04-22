@@ -70,7 +70,6 @@ CREATE TABLE `vehicle` (
     `model` varchar(50) DEFAULT NULL,
     `year` int DEFAULT 0,
     `color` varchar(50) DEFAULT NULL,
-    `wheelDriveType` varchar(50) DEFAULT NULL,
     `transmissionType` varchar(50) DEFAULT NULL,
     `auctionID` int DEFAULT 0,
     primary key (`vin`),

@@ -22,7 +22,8 @@
 			HelperFunctions.checkIfAnyAuctionHasEnded();
 			
 			int auctionID = Integer.parseInt(request.getParameter("idHelper"));
-			List<BidHistory> history = HelperFunctions.getBidHistoryForAuction(auctionID);
+			List<BidHistory> history = new ArrayList<>();
+			history = HelperFunctions.getBidHistoryForAuction(auctionID);
 		%>
 		
 		<form action="showAuctionDetails.jsp" method="POST">

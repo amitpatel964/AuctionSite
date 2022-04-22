@@ -36,7 +36,7 @@
 		java.sql.Statement statement = con.createStatement();
 		statement.executeUpdate("update alertForBidOrWinner set wasSeen='yes' where auctionID='"+auctionID+"' and username='"+session.getAttribute("user")+"'");
 		%>
-		
+		Auction for: <br/>
 		Name: <%= auction.getAuctionName() %> <br/>
 		Creator: <%= auction.getCreator() %> <br/>
 		Initial Price: <%= auction.getInitialPrice() %> <br/>
@@ -59,23 +59,53 @@
 		%>
 		<br/>
 		
-		Auction for: 
 		<%
 			Vehicle vehicle = HelperFunctions.getVehicleFromAuctionID(auctionID);
 		%>
 		Vehicle Details: <br/>
+		Manufacturer: <%= vehicle.getManufacturer() %> <br/>
+		Model: <%= vehicle.getModel() %> <br/>
+		Type of Vehicle: <%= auction.getVehicleType() %> <br/>
 		Number Of Doors: <%= vehicle.getNumberOfDoors() %> <br/>
 		Number Of Seats: <%= vehicle.getNumberOfSeats() %> <br/>
 		Mileage: <%= vehicle.getMileage() %> miles <br/>
 		Miles Per Gallon: <%= vehicle.getMilesPerGallon() %> miles per gallon <br/>
 		Fuel Type: <%= vehicle.getFuelType() %> <br/>
 		Condition: <%= vehicle.getNewOrUsed() %> <br/>
-		Manufacturer: <%= vehicle.getManufacturer() %> <br/>
-		Model: <%= vehicle.getModel() %> <br/>
 		Year: <%= vehicle.getYear() %> <br/>
 		Color: <%= vehicle.getColor() %> <br/>
-		Drive Type: <%= vehicle.getWheelDriveType() %> <br/>
 		Transmission: <%= vehicle.getTransmissionType() %> <br/>
+		<%
+		if (auction.getVehicleType().equals("Car")) {
+			Car car = HelperFunctions.getCarFromVin(vehicle.getVin());
+			%>
+			Type of Car: <%= car.getTypeOfCar() %> <br/>
+			Is Convertible: <%= car.getIsConvertible() %> <br/>
+			<%
+		} else if (auction.getVehicleType().equals("Suv")) {
+			Suv suv = HelperFunctions.getSuvFromVin(vehicle.getVin());
+			%>
+			Expandable Seats: <%= suv.getSeatsExpandable() %> <br/>
+			<%
+		} else if (auction.getVehicleType().equals("Van")) {
+			Van van = HelperFunctions.getVanFromVin(vehicle.getVin());
+			%>
+			Mini or Full Van: <%= van.getVanMiniOrFull() %> <br/>
+			<%
+		} else if (auction.getVehicleType().equals("Truck")) {
+			Truck truck = HelperFunctions.getTruckFromVin(vehicle.getVin());
+			%>
+			Is Pickup Truck: <%= truck.getIsPickUpTruck() %> <br/>
+			Number Of Wheels: <%= truck.getNumberOfWheels() %> <br/>
+			<%
+		} else {
+			Motorcycle motorcycle = HelperFunctions.getMotorcycleFromVin(vehicle.getVin());
+			%>
+			Type of Motorcycle: <%= motorcycle.getTypeOfMotorCycle() %> <br/>
+			Has Storage: <%= motorcycle.getHasStorage() %> <br/>
+			<%
+		}
+		%>
 		<br/>
 		
 		View Bid History:

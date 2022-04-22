@@ -41,7 +41,6 @@
 	String model = request.getParameter("model");
 	int year = 0;
 	String color = request.getParameter("color");
-	String wheelDriveType = request.getParameter("wheelDriveType");
 	String transmissionType = request.getParameter("tranmissionType");
 	
 	// Make sure fields are filled in properly
@@ -111,12 +110,45 @@
 	String winner = "";
 	String status = "open";
 	
+	// Check to see number of wheels is filled in properly if vehicle is a truck
+	if (vehicleType.equals("Truck")) {
+		try {
+			int numberOfWheels = Integer.parseInt(request.getParameter("numberOfWheels"));
+		} catch (NumberFormatException e) {
+			out.println("Please fill in the text box for the number of wheels under truck details");
+			out.println("<a href='createAuctionPage.jsp'> Click here to try again </a>");
+			return;
+		}
+	}
+	
 	statement.executeUpdate("insert into auction values('" + auctionID + "','" + creator + "','" + auctionName + "','" + 
 			initialPrice + "','" + currentPrice + "','" + minimumSellingPrice + "','" + bidIncrement + "','" + vehicleType + "','" + 
 			startingDateTime + "','" + endingDateTime + "','" + autoBidHighest + "','" + currentHighestBidder + "','" + winner + "','" + status + "')");
 	statement.executeUpdate("insert into vehicle values('" + vin + "','" + numberOfDoors + "','" + 
 			numberOfSeats + "','" + mileage + "','" + milesPerGallon + "','" + fuelType + "','" + newOrUsed + "','" + 
-			manufacturer + "','" + model + "','" + year + "','" + color + "','" + wheelDriveType + "','" + transmissionType + "','" + auctionID + "')");
+			manufacturer + "','" + model + "','" + year + "','" + color + "','" + transmissionType + "','" + auctionID + "')");
+	
+	// Fill in details for vehicle type
+	if (vehicleType.equals("car")) {
+		String typeOfCar = request.getParameter("typeOfCar");
+		String isConvertible = request.getParameter("isConvertible");
+		statement.executeUpdate("insert into car values('" + typeOfCar + "','" + isConvertible + "','" + vin + "')");
+	} else if (vehicleType.equals("Suv")) {
+		String seatsExpandable = request.getParameter("seatsExpandable");
+		statement.executeUpdate("insert into suv values('" + seatsExpandable + "','" + vin + "')");
+	} else if (vehicleType.equals("Van")) {
+		String vanMiniOrFull = request.getParameter("vanMiniOrFull");
+		statement.executeUpdate("insert into van values('" + vanMiniOrFull + "','" + vin + "')");
+	} else if (vehicleType.equals("Truck")) {
+		String isPickUpTruck = request.getParameter("isPickUpTruck");
+		int numberOfWheels = Integer.parseInt(request.getParameter("numberOfWheels"));
+		statement.executeUpdate("insert into truck values('" + isPickUpTruck + "','" + numberOfWheels + "','" + vin + "')");
+	} else {
+		String hasStorage = request.getParameter("hasStorage");
+		String typeOfMotorCycle = request.getParameter("typeOfMotorCycle");
+		statement.executeUpdate("insert into motorcycle values('" + hasStorage + "','" + typeOfMotorCycle + "','" + vin + "')");
+	}
+	
 	out.println("Auction made!");
 	out.println("<a href='userHomePage.jsp'> Click here to go to your home page </a>");
 %>
