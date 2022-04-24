@@ -114,9 +114,11 @@
 			<input type="submit" value="Go to Bid History"/>
 		</form>
 		<br/>
-		
-		Place Bid: 
 		<form action="placeBid.jsp" method="POST">
+		Do you want a notification if you get outbid? <br/>
+			<input type="radio" name="wantAlertIfOutbid" value="Yes" checked="checked"/>Yes
+			<input type="radio" name="wantAlertIfOutbid" value="No"/>No <br/>
+			Place Bid: 
 			<input type="hidden" name="idHelper" value="<%= auctionID %>"/>
 			<input type="text" name="amount"/> <br/>
 			<input type="submit" name="bidButton" value="Place Bid"/>

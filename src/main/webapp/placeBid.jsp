@@ -71,10 +71,19 @@
 				
 			statement.executeUpdate("update auction set currentPrice='" + amount + "' where auctionID='" + auctionID + "'");
 			
+			String shouldNotify = request.getParameter("wantAlertIfOutbid");
+			
+			statement.executeUpdate("insert into alertNotifyIfOutbid values('" + shouldNotify + "','" + user + "','" + auctionID + "')");
+			
 			// Send out an alert if needed
 			String currentHighestBidder = auction.getCurrentHighestBidder();
 			if (!currentHighestBidder.equals("") && !currentHighestBidder.equals(user)) {
-				statement.executeUpdate("insert into alertForBidOrWinner values('outbid','"+currentHighestBidder+"','"+auctionID+"','no')");
+				ResultSet result = statement.executeQuery("select * from alertNotifyIfOutbid where username = '"+ currentHighestBidder +"' and auctionID ='" + auctionID + "'");
+				result.next();
+				String shouldNotifyResult = result.getString("shouldNotify");
+				if (shouldNotifyResult.equals("Yes")) {
+					statement.executeUpdate("insert into alertForBidOrWinner values('outbid','"+currentHighestBidder+"','"+auctionID+"','no')");
+				}
 			}
 			
 			statement.executeUpdate("update auction set currentHighestBidder='" + user + "' where auctionID='" + auctionID + "'");
