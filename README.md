@@ -9,8 +9,8 @@ I. Auctions <br/>
     ---[X] set a hidden minimum price (reserve) <br/>
  [X] a buyer should be able to bid <br/>
      ---[X] let the buyer set a new bid <br/>
-     ---[] in case of automatic bidding set secret upper limit and bid increment <br/>
-     ---[] alert other buyers of the item that a higher bid has been placed (manual) <br/>
+     ---[X] in case of automatic bidding set secret upper limit and bid increment <br/>
+     ---[X] alert other buyers of the item that a higher bid has been placed (manual) <br/>
      ---[X] alert buyers in case someone bids more than their upper limit (automatic) <br/>
  [X] define the winner of the auction <br/>
      ---[X] when the closing time has come, check if the seller has set a reserve <br/>
