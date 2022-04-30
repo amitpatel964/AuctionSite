@@ -231,6 +231,30 @@ public class HelperFunctions {
 		return history;
 	}
 	
+	public static List<BidHistory> getBidHistoryForUser(String username) throws SQLException {
+		List<BidHistory> history = new ArrayList<>();
+		
+		ApplicationDB db = new ApplicationDB();
+		java.sql.Connection con = db.getConnection();
+		
+		java.sql.Statement statement = con.createStatement();
+		
+		ResultSet bids = statement.executeQuery("select * from auctionBidHistory where username ='" + username + "'");
+		
+		while(bids.next()) {
+			int auctionID = bids.getInt("auctionID");
+			float bidAmount = bids.getFloat("bidAmount");
+			LocalDateTime bidDateTime = bids.getTimestamp("bidDateTime").toLocalDateTime();
+			BidHistory toAddToList = new BidHistory(auctionID,username,bidAmount,bidDateTime);
+			history.add(toAddToList);
+		}
+		
+		statement.close();
+		con.close();
+		
+		return history;
+	}
+	
 	/**
 	 * This method will return the list of unique bidders for an auction given an auctionID
 	 * 

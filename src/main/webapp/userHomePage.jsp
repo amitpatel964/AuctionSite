@@ -35,6 +35,12 @@ From here, the user is able to create an auction, search of an auction, and view
 			</p>
 			<input type="submit" value="Search Auctions"/>
 		</form>
+		<form action="showUserBidHistory.jsp" method="POST">
+			<p>
+				Click the button below to see your bid history.
+			</p>
+			<input type="submit" value="View Bid History"/>
+		</form>
 		
 		<h1>Alerts</h1><br/>
 		<form action="showAuctionDetails.jsp" method="POST">

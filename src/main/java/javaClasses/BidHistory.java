@@ -3,7 +3,7 @@ package javaClasses;
 import java.time.LocalDateTime;
 
 /**
- * This class is used to organize information for the bid history of an auction.
+ * This class is used to organize information for the bid history of an auction or user.
  * 
  * @author Amit
  *
