@@ -23,7 +23,7 @@ II. Browsing and advanced search functionality <br/>
     ---[] sort by different criteria (by type, bidding price etc.) <br/>
     ---[] search the list of items by various criteria. <br/>
     ---[] a user should be able to: <br/>
-    ------[] view all the history of bids for any specific auction <br/>
+    ------[X] view all the history of bids for any specific auction <br/>
     ------[] view the list of all auctions a specific buyer or seller has participated in <br/>
     ------[] view the list of "similar" items on auctions in the preceding month (and auction information about them) <br/>
     ---[] let user set an alert for specific items s/he is interested <br/>
@@ -41,7 +41,7 @@ I||. Admin and customer rep functions <br/>
     ---------[] item type <br/>
     ---------[] end-user <br/>
     ---------[] best-selling items <br/> 
-    ---[] best buyers <br/>
+    ---------[] best buyers <br/>
     ---[] Customer representative functions: <br/>
     ------[] users post questions to the customer representatives (i.e. customer service) <br/>
     ------[] reps reply to user questions <br/>
