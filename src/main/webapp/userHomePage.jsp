@@ -37,9 +37,10 @@ From here, the user is able to create an auction, search of an auction, and view
 		</form>
 		<form action="showUserBidHistory.jsp" method="POST">
 			<p>
-				Click the button below to see your bid history.
+				Click the button below to see auctions you have participated in.
 			</p>
-			<input type="submit" value="View Bid History"/>
+			<input type="hidden" name="username" value="<%= session.getAttribute("user") %>"/>
+			<input type="submit" value="View Auction History"/>
 		</form>
 		
 		<h1>Alerts</h1><br/>

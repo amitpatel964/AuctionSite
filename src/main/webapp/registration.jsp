@@ -9,6 +9,8 @@
 <%
 	String username = request.getParameter("username");
 	String email = request.getParameter("email");
+	String firstName = request.getParameter("firstName");
+	String lastName = request.getParameter("lastName");
 	String password = request.getParameter("password");
 	String reEnterPassword = request.getParameter("reEnterPassword");
 	
@@ -23,7 +25,8 @@
 	
 	int errorCount = 0;
 	
-	if (username.trim().equals("") || username.trim().equals("") || username.trim().equals("") || username.trim().equals("")) {
+	if (username.trim().equals("") || username.trim().equals("") || username.trim().equals("") || username.trim().equals("")
+			|| firstName.trim().equals("") || lastName.trim().equals("")) {
 		out.println("Please fill in all fields");
 		errorCount++; 
 	}
@@ -31,18 +34,18 @@
 		out.println("Passwords do not match");
 		errorCount++;
 	}
-	ResultSet result = statement.executeQuery("select * from userLogin where username='" + username + "'");
-	if (result.next()) {
+	ResultSet result = statement.executeQuery("select * from user where username='" + username + "'");
+	if (result.next() || username.toLowerCase().equals("admin")) {
 		out.println("User name already exists");
 		errorCount++;
 	} 
-	ResultSet resultEmail = statement.executeQuery("select * from userLogin where email='" + email + "'");
+	ResultSet resultEmail = statement.executeQuery("select * from user where email='" + email + "'");
 	if (resultEmail.next()) {
 		out.println("Email is being used by another account");
 		errorCount++;
 	} 
 	if (errorCount==0) {
-		statement.executeUpdate("insert into userLogin values('" + username + "','" + email + "','" + password + "')");
+		statement.executeUpdate("insert into user values('" + username + "','" + email + "','" + firstName + "','" + lastName + "','" + password + "')");
 		out.println("Registration successful!");
 		out.println("<a href='login.jsp'> Click here to login </a>");
 	} else {

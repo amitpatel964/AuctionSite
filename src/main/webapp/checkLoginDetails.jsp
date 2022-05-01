@@ -14,7 +14,7 @@
 	
 	Statement statement = con.createStatement();
 	
-	ResultSet result = statement.executeQuery("select * from userLogin where username='" + username 
+	ResultSet result = statement.executeQuery("select * from user where username='" + username 
 			+ "' and password='" + password + "'");
 	
 	// Chcek to see if the user exists and if the password is correct
@@ -23,7 +23,21 @@
 		out.println("Welcome " + username);
 		out.println("<a href='logout.jsp'> Logout </a>");
 		response.sendRedirect("successLogin.jsp");
-	} else {
-		out.println("User name or password are incorrect <a href='login.jsp'> Click here to try again </a>");
+		return;
 	}
+	
+	ResultSet resultAdmin = statement.executeQuery("select * from admin where username='" + username 
+			+ "' and password='" + password + "'");
+	
+	// Chcek to see if the admin is trying to log in
+		if (resultAdmin.next()) {
+			session.setAttribute("user", username);
+			out.println("Welcome " + username);
+			out.println("<a href='logout.jsp'> Logout </a>");
+			response.sendRedirect("successLoginAdmin.jsp");
+			return;
+		}
+	
+	out.println("User name or password are incorrect <a href='login.jsp'> Click here to try again </a>");
+	
 %>

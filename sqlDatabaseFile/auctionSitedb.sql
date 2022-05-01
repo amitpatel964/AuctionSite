@@ -12,15 +12,32 @@ USE `auctionSitedb`;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-DROP TABLE IF EXISTS `userLogin`;
+DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `userLogin` (
+CREATE TABLE `user` (
 	`username` varchar(50) NOT NULL DEFAULT '',
     `email` varchar(50) DEFAULT NULL,
+    `firstName` varchar(50) DEFAULT NULL,
+    `lastName` varchar(50) DEFAULT NULL,
 	`password` varchar(50) DEFAULT NULL,
 	primary key (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `admin`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `admin` (
+	`username` varchar(50) NOT NULL DEFAULT '',
+	`password` varchar(50) DEFAULT NULL,
+	primary key (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `admin` WRITE;
+/*!40000 ALTER TABLE `admin` DISABLE KEYS */;
+INSERT INTO `admin` VALUES ('admin','admin');
+/*!40000 ALTER TABLE `admin` ENABLE KEYS */;
+UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `auction`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -51,7 +68,7 @@ CREATE TABLE `auctionBidHistory` (
 	`username` varchar(50) DEFAULT NULL,
     `bidAmount` float DEFAULT 0,
     `bidDateTime` datetime DEFAULT NULL,
-    foreign key(`username`) references `userLogin`(`username`),
+    foreign key(`username`) references `user`(`username`),
     foreign key(`auctionID`) references `auction`(`auctionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -132,7 +149,7 @@ CREATE TABLE `alertForBidOrWinner` (
     `username` varchar(50) DEFAULT NULL,
     `auctionID` int DEFAULT 0,
     `wasSeen` varchar(5) DEFAULT NULL,
-    foreign key(`username`) references `userLogin`(`username`),
+    foreign key(`username`) references `user`(`username`),
     foreign key(`auctionID`) references `auction`(`auctionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -143,6 +160,6 @@ CREATE TABLE `alertNotifyIfOutbid` (
 	`shouldNotify` varchar(5) DEFAULT NULL,
     `username` varchar(50) DEFAULT NULL,
     `auctionID` int DEFAULT 0,
-    foreign key(`username`) references `userLogin`(`username`),
+    foreign key(`username`) references `user`(`username`),
     foreign key(`auctionID`) references `auction`(`auctionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

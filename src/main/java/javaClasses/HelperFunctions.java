@@ -204,7 +204,7 @@ public class HelperFunctions {
 	 * This method is used to help build the bid history for a certain auction given an auctionID.
 	 * 
 	 * @param auctionID
-	 * @return
+	 * @return List of BidHistory
 	 * @throws SQLException
 	 */
 	public static List<BidHistory> getBidHistoryForAuction(int auctionID) throws SQLException {
@@ -231,6 +231,13 @@ public class HelperFunctions {
 		return history;
 	}
 	
+	/**
+	 * This method is used to get all of the bids a user has made
+	 * 
+	 * @param username
+	 * @return List of BidHistory
+	 * @throws SQLException
+	 */
 	public static List<BidHistory> getBidHistoryForUser(String username) throws SQLException {
 		List<BidHistory> history = new ArrayList<>();
 		
@@ -253,6 +260,34 @@ public class HelperFunctions {
 		con.close();
 		
 		return history;
+	}
+	
+	/**
+	 * This method is used to get all of the auctionIDs of the auctions a user has made
+	 * 
+	 * @param username
+	 * @return List of Integers
+	 * @throws SQLException
+	 */
+	public static List<Integer> getAuctionsMadeByUser(String username) throws SQLException {
+		List<Integer> auctionsMade = new ArrayList<>();
+		
+		ApplicationDB db = new ApplicationDB();
+		java.sql.Connection con = db.getConnection();
+		
+		java.sql.Statement statement = con.createStatement();
+		
+		ResultSet auctions = statement.executeQuery("select * from auction where creator ='" + username + "'");
+		
+		while(auctions.next()) {
+			int auctionID = auctions.getInt("auctionID");
+			auctionsMade.add(auctionID);
+		}
+		
+		statement.close();
+		con.close();
+		
+		return auctionsMade;
 	}
 	
 	/**

@@ -13,7 +13,7 @@
 		<%
 			if (session.getAttribute("user") == null) {
 		%>
-				Login was not successful. <a href="login.jsp">Please try again</a>
+			Login was not successful. <a href="login.jsp">Please try again</a>
 		<%
 			} else {
 		%>
