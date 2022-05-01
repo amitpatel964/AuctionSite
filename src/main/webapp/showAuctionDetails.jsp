@@ -41,7 +41,28 @@
 		Creator: <%= auction.getCreator() %> <br/>
 		Initial Price: <%= auction.getInitialPrice() %> <br/>
 		Current Price: <%= auction.getCurrentPrice() %> <br/>
-		Current Highest Bidder: <%= auction.getCurrentHighestBidder() %> <br/>
+		<%
+			if (auction.getStatus().equals("open")){
+			%>
+				Current Highest Bidder: <% 
+				if (auction.getCurrentHighestBidder().equals("")){
+					out.println("None");
+				} else {
+					out.println(auction.getCurrentHighestBidder());
+				}
+				%> 
+			<%
+			} else {
+				%>
+				Winner: <% 
+				if (auction.getWinner().equals("")){
+					out.println("None");
+				} else {
+					out.println(auction.getWinner());
+				}
+			}
+		%> <br/>
+		
 		Bid Increment: <%= auction.getBidIncrement() %> <br/>
 		<%
 			String[] starting = auction.getStartingDateTime().toString().split("T");
@@ -51,13 +72,16 @@
 		Starting Time: <%= starting[1] %> <br/>
 		Ending Date: <%= ending[0] %> <br/>
 		Ending Time: <%= ending[1] %> <br/>
+		Status: 
 		<%
 			LocalDateTime currentTime = LocalDateTime.now();
-			if (currentTime.isBefore(auction.getEndingDateTime())) {
-				out.println("open");
+			if (auction.getStatus().equals("open")) {
+				out.println("Open");
+			} else {
+				out.println("Closed");
 			}
 		%>
-		<br/>
+		<br/> <br/>
 		
 		<%
 			Vehicle vehicle = HelperFunctions.getVehicleFromAuctionID(auctionID);

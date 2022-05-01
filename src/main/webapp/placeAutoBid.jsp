@@ -31,6 +31,17 @@
 		<input type="hidden" name="idHelper" value="<%= auctionID %>"/>
 		
 		<%
+			// Auction is closed, no more bids can be placed
+			if (auction.getStatus().equals("closed")) {
+				out.println("This auction has ended and is no longer accepting bids");
+				%>
+				<input type="submit" value="Go back"/>
+				<%
+				return;
+			}
+		%>
+		
+		<%
 		if (user.equals(auction.getCreator())) {
 			out.println("You cannot bid on your own auction");
 			%>

@@ -88,8 +88,17 @@
 		return;
 	}
 	String dateAndTime = endingDate + " " + endingTime;
-	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-	LocalDateTime endingDateTime = LocalDateTime.parse(dateAndTime, formatter);
+	DateTimeFormatter formatter;
+	LocalDateTime endingDateTime;
+				
+	try {
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endingDateTime = LocalDateTime.parse(dateAndTime, formatter);
+	} catch(NumberFormatException e) {
+		out.println("Please type in the ending date and time correctly");
+		out.println("<a href='createAuctionPage.jsp'> Click here to try again </a>");
+		return;
+	}
 	
 	int auctionID = 1000;
 	
@@ -129,7 +138,7 @@
 			manufacturer + "','" + model + "','" + year + "','" + color + "','" + transmissionType + "','" + auctionID + "')");
 	
 	// Fill in details for vehicle type
-	if (vehicleType.equals("car")) {
+	if (vehicleType.equals("Car")) {
 		String typeOfCar = request.getParameter("typeOfCar");
 		String isConvertible = request.getParameter("isConvertible");
 		statement.executeUpdate("insert into car values('" + typeOfCar + "','" + isConvertible + "','" + vin + "')");
