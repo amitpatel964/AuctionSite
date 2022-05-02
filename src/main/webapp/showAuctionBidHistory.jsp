@@ -44,10 +44,16 @@
 					String[] splitter = dateTime.split("T");
 					%>
 					<tr>
-						<th><%=history.get(i).getUsername()%></th>
-						<th><%=history.get(i).getBidAmount()%></th>
-						<th><%=splitter[0]%></th>
-						<th><%=splitter[1]%></th>
+						<td><%=history.get(i).getUsername()%></td>
+						<td><%=history.get(i).getBidAmount()%></td>
+						<td><%=splitter[0]%></td>
+						<td><%=splitter[1]%></td>
+						<td>
+							<form action="showUserBidHistory.jsp" method="POST">
+								<input type="hidden" name="username" value="<%= history.get(i).getUsername() %>"/>
+								<input type="submit" value="See user's auction history"/>
+							</form>
+						</td>
 					</tr>
 					<%
 				}

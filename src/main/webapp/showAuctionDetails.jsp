@@ -38,7 +38,12 @@
 		%>
 		Auction for: <br/>
 		Name: <%= auction.getAuctionName() %> <br/>
-		Creator: <%= auction.getCreator() %> <br/>
+		Creator: <%= auction.getCreator() %> 
+				<form action="showUserBidHistory.jsp" method="POST">
+					<input type="hidden" name="username" value="<%= auction.getCreator() %>"/>
+					<input type="submit" value="See auction history"/>
+				</form>
+		<br/>
 		Initial Price: <%= auction.getInitialPrice() %> <br/>
 		Current Price: <%= auction.getCurrentPrice() %> <br/>
 		<%
@@ -142,11 +147,13 @@
 		Do you want a notification if you get outbid? <br/>
 			<input type="radio" name="wantAlertIfOutbid" value="Yes" checked="checked"/>Yes
 			<input type="radio" name="wantAlertIfOutbid" value="No"/>No <br/>
-			Place Bid: 
+			Place Bid: <br/>
 			<input type="hidden" name="idHelper" value="<%= auctionID %>"/>
 			<input type="text" name="amount"/> <br/>
 			<input type="submit" name="bidButton" value="Place Bid"/>
 		</form>
+		<br/>
+		If you place an auto bid, you will automatically get an alert if you get outbid.
 		<br/>
 		Place Auto Bid:
 		<form action="placeAutoBid.jsp" method="POST">

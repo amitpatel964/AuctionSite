@@ -40,10 +40,16 @@
 					String[] splitter = dateTime.split("T");
 					%>
 					<tr>
-						<th><%=history.get(i).getAuctionID()%></th>
-						<th><%=history.get(i).getBidAmount()%></th>
-						<th><%=splitter[0]%></th>
-						<th><%=splitter[1]%></th>
+						<td><%=history.get(i).getAuctionID()%></td>
+						<td><%=history.get(i).getBidAmount()%></td>
+						<td><%=splitter[0]%></td>
+						<td><%=splitter[1]%></td>
+						<td>
+							<form action="showAuctionDetails.jsp" method="POST">
+								<input type="hidden" name="idHelper" value="<%= history.get(i).getAuctionID() %>"/>
+								<input type="submit" value="Go to Auction"/>
+							</form>
+						</td>
 					</tr>
 					<%
 				}
@@ -66,7 +72,13 @@
 					for (int i = 0; i < uniqueAuctions.size(); i++) {
 					%>
 					<tr>
-						<th><%=uniqueAuctions.get(i)%></th>
+						<td><%=uniqueAuctions.get(i)%></td>
+						<td>
+							<form action="showAuctionDetails.jsp" method="POST">
+								<input type="hidden" name="idHelper" value="<%= uniqueAuctions.get(i) %>"/>
+								<input type="submit" value="Go to Auction"/>
+							</form>
+						</td>
 					</tr>
 					<%
 				}
@@ -84,7 +96,13 @@
 					for (int i = 0; i < auctionsCreated.size(); i++) {
 					%>
 					<tr>
-						<th><%=auctionsCreated.get(i)%></th>
+						<td><%=auctionsCreated.get(i)%></td>
+						<td>
+							<form action="showAuctionDetails.jsp" method="POST">
+								<input type="hidden" name="idHelper" value="<%= auctionsCreated.get(i) %>"/>
+								<input type="submit" value="Go to Auction"/>
+							</form>
+						</td>
 					</tr>
 					<%
 				}
