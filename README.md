@@ -32,8 +32,8 @@ II. Browsing and advanced search functionality <br/>
     ---[] users search questions by keywords <br/>
  
 I||. Admin and customer rep functions <br/>
-    ---[] Admin (create an admin account ahead of time) <br/>
-    ------[] creates accounts for customer representatives <br/>
+    ---[X] Admin (create an admin account ahead of time) <br/>
+    ------[X] creates accounts for customer representatives <br/>
     ------[] generates sales reports for: <br/>
     ---------[] total earnings <br/>
     ---------[] earnings per: <br/>
