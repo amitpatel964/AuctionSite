@@ -9,5 +9,21 @@
 	<body>
 		Admin Home Page
 		<a href='logout.jsp'>Log out</a>
+		
+		<form action="createCustReps.jsp" method="POST">
+			<p>
+				Click the button below to create Customer Representatives.
+			</p>
+			<input type="submit" value="Create Customer Representatives"/>
+		</form>
+		<form action="salesReport.jsp" method="POST">
+			<p>
+				Click the button below to view Sales Report.
+			</p>
+			<input type="submit" value="Sales Report"/>
+		</form>
+			<input type="hidden" name="username" value="<%= session.getAttribute("user") %>"/>
+		</form>
+		
 	</body>
 </html>
