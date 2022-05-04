@@ -19,9 +19,9 @@ I. Auctions <br/>
      ---------[X] alert the winner that they won the auction <br/>
  
 II. Browsing and advanced search functionality <br/>
-    ---[] let people browse on the items and see the status of the current bidding <br/>
+    ---[X] let people browse on the items and see the status of the current bidding <br/>
     ---[] sort by different criteria (by type, bidding price etc.) <br/>
-    ---[] search the list of items by various criteria. <br/>
+    ---[X] search the list of items by various criteria. <br/>
     ---[] a user should be able to: <br/>
     ------[X] view all the history of bids for any specific auction <br/>
     ------[X] view the list of all auctions a specific buyer or seller has participated in <br/>
