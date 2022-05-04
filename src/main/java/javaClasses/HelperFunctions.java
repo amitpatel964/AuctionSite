@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.mysql.jdbc.Connection;
@@ -443,6 +444,50 @@ public class HelperFunctions {
 		con.close();
 		
 		return motorcycle;
+	}
+	
+	/**
+	 * Sorts the list of auctions alphabetically by vehicle manufacturer
+	 * 
+	 * @param allAuctions
+	 * @return
+	 * @throws SQLException
+	 */
+	public static List<Auction> sortAuctionsByManufacturer(List<Auction> allAuctions) throws SQLException {
+		List<Auction> sortedList = new ArrayList<>();
+		List<Vehicle> listOfVehicles = new ArrayList<>();
+		
+		for (Auction auction: allAuctions) {
+			Vehicle vehicle = getVehicleFromAuctionID(auction.getAuctionID());
+			listOfVehicles.add(vehicle);
+		}
+		
+		sortedList.add(allAuctions.get(0));
+		
+		for (int i = 1; i < allAuctions.size(); i++) {
+			Vehicle vehicle = listOfVehicles.get(i);
+			for (int j = 0; j < i; j++) {
+				Vehicle vehicleToCompareTo = getVehicleFromAuctionID(sortedList.get(j).getAuctionID());
+				if (vehicle.getManufacturer().compareTo(vehicleToCompareTo.getManufacturer()) < 0) {
+					if (j == 0) {
+						sortedList.add(0,allAuctions.get(i));
+					} else {
+						sortedList.add(j,allAuctions.get(i));
+					}
+					break;
+				}
+				
+				if (j == i - 1) {
+					sortedList.add(allAuctions.get(i));
+				}
+			}
+		}
+		
+		for (int i = 0; i < sortedList.size(); i++) {
+			System.out.println(sortedList.get(i).getAuctionID());
+		}
+		
+		return sortedList;
 	}
 	
 	/**

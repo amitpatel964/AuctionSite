@@ -55,7 +55,13 @@
 				<input type="text" name="maxMileage"/> <br/><br/>
 				Minimum Miles Per Gallon </br> 
 				<input type="text" name="minimumMPG"/> <br/><br/>
-			<input type="submit" value="Filter Auctions"/>
+				<label for="sortAuctions">Sort Auctions</label> </br>
+					<select name="sortAuctions" id="sortAuctions">
+						<option value="">--Choose how to Sort Auctions--</option>
+						<option value="Manufacturer">Manufacturer</option>
+					</select>
+				</br> </br>
+			<input type="submit" value="Filter and/or Sort Auctions"/>
 			</br></br>
 		</form>
 		<%
@@ -117,9 +123,23 @@
 			} catch (NumberFormatException e) {
 				maxMileageString = "";
 			}
+			
+			String sortType;
+			try {
+				sortType = request.getParameter("sortAuctions");
+			} catch (NumberFormatException e) {
+				sortType = "";
+			}
 			// Check to see if any open auctions should be ending
 			HelperFunctions.checkIfAnyAuctionHasEnded();
 			List<Auction> allAuctions = HelperFunctions.getListOfAuctions();
+			
+			if (sortType != null && !sortType.equals("")){
+				if (sortType.equals("Manufacturer")){
+					List<Auction> sortedList = HelperFunctions.sortAuctionsByManufacturer(allAuctions);
+					allAuctions = sortedList;
+				}
+			}
 			
 			for (int i = 0; i < allAuctions.size(); i++) {
 				Vehicle vehicle = HelperFunctions.getVehicleFromAuctionID(allAuctions.get(i).getAuctionID());
