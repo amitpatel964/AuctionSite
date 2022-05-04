@@ -37,8 +37,24 @@
 						<option value="Used">Used</option>
 					</select>
 				</br> </br>
-				Max Current Price </br> 
+				<label for="fuelType">Vehicle Fuel Type</label> </br>
+					<select name="fuelType" id="fuelType">
+						<option value="">--Choose Vehicle Fuel Type--</option>
+						<option value="New">Gasoline</option>
+						<option value="Used">Electric</option>
+						<option value="Used">Hybrid</option>
+					</select>
+				</br> </br>
+				Maximum Current Price </br> 
 				<input type="text" name="maxCurrentPrice"/> <br/><br/>
+				Manufacturer </br> 
+				<input type="text" name="manufacturer"/> <br/><br/>
+				Model </br> 
+				<input type="text" name="model"/> <br/><br/>
+				Maximum Mileage </br> 
+				<input type="text" name="maxMileage"/> <br/><br/>
+				Minimum Miles Per Gallon </br> 
+				<input type="text" name="minimumMPG"/> <br/><br/>
 			<input type="submit" value="Filter Auctions"/>
 			</br></br>
 		</form>
@@ -49,18 +65,57 @@
 			} catch (NumberFormatException e) {
 				vehicleType = "";
 			}
+			
 			String newOrUsed;
 			try {
 				newOrUsed = request.getParameter("newOrUsed");
 			} catch (NumberFormatException e) {
 				newOrUsed = "";
 			}
+			
 			float maxCurrentPrice;
 			String maxCurrentPriceString = "";
 			try {
 				maxCurrentPriceString = request.getParameter("maxCurrentPrice");
 			} catch (NumberFormatException e) {
 				maxCurrentPriceString = "";
+			}
+			
+			String manufacturer;
+			try {
+				manufacturer = request.getParameter("manufacturer");
+			} catch (NumberFormatException e) {
+				manufacturer = "";
+			}
+			
+			String model;
+			try {
+				model = request.getParameter("model");
+			} catch (NumberFormatException e) {
+				model = "";
+			}
+			
+			String minimumMPGString;
+			int minimumMPG = 0;
+			try {
+				minimumMPGString = request.getParameter("minimumMPG");
+			} catch (NumberFormatException e) {
+				minimumMPGString = "";
+			}
+			
+			String fuelType;
+			try {
+				fuelType = request.getParameter("fuelType");
+			} catch (NumberFormatException e) {
+				fuelType = "";
+			}
+			
+			String maxMileageString;
+			int maxMileage = 0;
+			try {
+				maxMileageString = request.getParameter("maxMileage");
+			} catch (NumberFormatException e) {
+				maxMileageString = "";
 			}
 			// Check to see if any open auctions should be ending
 			HelperFunctions.checkIfAnyAuctionHasEnded();
@@ -87,18 +142,56 @@
 						continue;
 					}
 				}
+				if (manufacturer != null && !manufacturer.equals("")){
+					if (!manufacturer.equals(vehicle.getManufacturer())) {
+						continue;
+					}
+				}
+				if (model != null && !model.equals("")){
+					if (!model.equals(vehicle.getModel())) {
+						continue;
+					}
+				}
+				if (minimumMPGString != null && !minimumMPGString.equals("")){
+					minimumMPG = Integer.parseInt(minimumMPGString);
+					if (minimumMPG < 0) {
+						minimumMPG = 0;
+					}
+					if (minimumMPG > vehicle.getMilesPerGallon()) {
+						continue;
+					}
+				}
+				if (fuelType != null && !fuelType.equals("")){
+					if (!fuelType.equals(vehicle.getFuelType())) {
+						continue;
+					}
+				}
+				if (maxMileageString != null && !maxMileageString.equals("")){
+					maxMileage = Integer.parseInt(maxMileageString);
+					if (maxMileage < 0) {
+						maxMileage = 0;
+					}
+					if (maxMileage < vehicle.getMileage()) {
+						continue;
+					}
+				}
 				
 				%>
 				<form action="showAuctionDetails.jsp" method="POST">
 					<input type="hidden" name="idHelper" value="<%= allAuctions.get(i).getAuctionID() %>"/>
 					<input type="submit" value="Select this Auction"/>
-					Auction: <%= allAuctions.get(i).getAuctionID() %>
-					Auction Name: <%= allAuctions.get(i).getAuctionName() %>
-					Creator: <%= allAuctions.get(i).getCreator() %>
-					Current Price: <%= allAuctions.get(i).getCurrentPrice() %>
-					Bid Increment: <%= allAuctions.get(i).getBidIncrement() %>
-					Vehicle Type: <%= allAuctions.get(i).getVehicleType() %>
-					Ending on: <%= allAuctions.get(i).getEndingDateTime() %>
+					<strong> Auction: </strong> <%= allAuctions.get(i).getAuctionID() %>,
+					<strong> Auction Name: </strong> <%= allAuctions.get(i).getAuctionName() %>
+					<strong> Creator: </strong> <%= allAuctions.get(i).getCreator() %>,
+					<strong> Manufacturer: </strong> <%= vehicle.getManufacturer() %>,
+					<strong> Model: </strong> <%= vehicle.getModel() %>,
+					<strong> Current Price: </strong> <%= allAuctions.get(i).getCurrentPrice() %>,
+					<strong> Vehicle Type: </strong> <%= allAuctions.get(i).getVehicleType() %>,
+					<strong> Vehicle Condition: </strong> <%= vehicle.getNewOrUsed() %>,
+					<strong> Vehicle Fuel Type: </strong> <%= vehicle.getFuelType() %>,
+					<strong> Mileage: </strong> <%= vehicle.getMileage() %>,
+					<strong> Miles Per Gallon: </strong> <%= vehicle.getMilesPerGallon() %>,
+					<strong> Status: </strong> <%= allAuctions.get(i).getStatus() %>
 				</form>
 				<br/>
 				<%
