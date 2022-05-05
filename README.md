@@ -26,8 +26,8 @@ II. Browsing and advanced search functionality <br/>
     ------[X] view all the history of bids for any specific auction <br/>
     ------[X] view the list of all auctions a specific buyer or seller has participated in <br/>
     ------[] view the list of "similar" items on auctions in the preceding month (and auction information about them) <br/>
-    ---[] let user set an alert for specific items s/he is interested <br/>
-    ------[] get an alert when the item becomes available <br/>
+    ---[X] let user set an alert for specific items s/he is interested <br/>
+    ------[X] get an alert when the item becomes available <br/>
     ---[] users browse questions and answers <br/>
     ---[] users search questions by keywords <br/>
  
