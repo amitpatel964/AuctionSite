@@ -35,6 +35,7 @@
 		
 		java.sql.Statement statement = con.createStatement();
 		statement.executeUpdate("update alertForBidOrWinner set wasSeen='yes' where auctionID='"+auctionID+"' and username='"+session.getAttribute("user")+"'");
+		statement.executeUpdate("update alertForNewItems set wasSeen='yes' where auctionID='"+auctionID+"' and username='"+session.getAttribute("user")+"'");
 		%>
 		Auction for: <br/>
 		Name: <%= auction.getAuctionName() %> <br/>

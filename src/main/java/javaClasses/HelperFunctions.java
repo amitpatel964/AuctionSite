@@ -156,6 +156,117 @@ public class HelperFunctions {
 		return alertsForUser;
 	}
 	
+	
+	public static List<Alert> getAlertsForNewItem(String currentUser) throws SQLException {
+		List<Alert> alertsForUser = new ArrayList<>();
+		ApplicationDB db = new ApplicationDB();
+		java.sql.Connection con = db.getConnection();
+		
+		java.sql.Statement statement = con.createStatement();
+		
+		ResultSet alertsForUserSet = statement.executeQuery("select * from alertForNewItems where username ='" + currentUser + "' and auctionID != '0' and wasSeen = 'no'");
+		
+		while (alertsForUserSet.next()) {
+			String alertType = "matchingItem";
+			int auctionID = alertsForUserSet.getInt("auctionID");
+			String wasSeen = alertsForUserSet.getString("wasSeen");
+			Alert alertToAdd = new Alert(alertType, currentUser, auctionID, wasSeen);
+			alertsForUser.add(alertToAdd);
+		}
+		
+		statement.close();
+		con.close();
+		
+		return alertsForUser;
+	}
+	
+	/**
+	 * This method is used to check if the new auction made has parameters that match a user's
+	 * alert for a certain item.
+	 * 
+	 * @param auctionID
+	 * @param vehicleType
+	 * @param manufacturer
+	 * @param model
+	 * @param year
+	 * @param newOrUsed
+	 * @param mileage
+	 * @param username
+	 * @throws SQLException
+	 */
+	public static void checkForMatchingItemAlert(int auctionID, String vehicleType, String manufacturer, String model,
+			int year, String newOrUsed, int mileage, String username) throws SQLException {
+		ApplicationDB db = new ApplicationDB();
+		java.sql.Connection con = db.getConnection();
+		
+		java.sql.Statement statement = con.createStatement();
+		
+		ResultSet alertsForNewItem = statement.executeQuery("select * from alertForNewItems where auctionID ='0'");
+		
+		while (alertsForNewItem.next()) {
+			int alertID = alertsForNewItem.getInt("alertID");
+			String usernameSet = alertsForNewItem.getString("username");
+			int auctionIDSet = alertsForNewItem.getInt("auctionID");
+			String vehicleTypeSet = alertsForNewItem.getString("vehicleType");
+			String manufacturerSet = alertsForNewItem.getString("manufacturer");
+			String modelSet = alertsForNewItem.getString("model");
+			int yearSet = alertsForNewItem.getInt("year");
+			String newOrUsedSet = alertsForNewItem.getString("newOrUsed");
+			int mileageSet = alertsForNewItem.getInt("mileage");
+			
+			if (auctionIDSet > 0 || username.equals(usernameSet)) {
+				continue;
+			}
+			
+			int amountToMatch = 0;
+			if (!vehicleTypeSet.equals("")) {
+				amountToMatch++;
+			}
+			if (!manufacturerSet.equals("")) {
+				amountToMatch++;
+			}
+			if (!modelSet.equals("")) {
+				amountToMatch++;
+			}
+			if (yearSet > -1) {
+				amountToMatch++;
+			}
+			if (!newOrUsedSet.equals("")) {
+				amountToMatch++;
+			}
+			if (mileageSet > -1) {
+				amountToMatch++;
+			}
+			
+			int amountMatched = 0;
+			if (!vehicleTypeSet.equals("") && vehicleTypeSet.equals(vehicleType)) {
+				amountMatched++;
+			}
+			if (!manufacturerSet.equals("") && manufacturerSet.equals(manufacturer)) {
+				amountMatched++;
+			}
+			if (!modelSet.equals("") && modelSet.equals(model)) {
+				amountMatched++;
+			}
+			if (yearSet > -1 && year == yearSet) {
+				amountMatched++;
+			}
+			if (!newOrUsedSet.equals("") && newOrUsedSet.equals(newOrUsed)) {
+				amountMatched++;
+			}
+			if (mileageSet > -1 && mileageSet == mileage) {
+				amountMatched++;
+			}
+			
+			if (amountToMatch == amountMatched) {
+				statement.executeUpdate("update alertForNewItems set auctionID = '"+auctionID+"' where alertID='"+alertID+"'");
+			}
+		}
+		
+//		statement.close();
+//		con.close();
+	}
+	
 	/**
 	 * This methods check to see if the current date/time is after any of the closing dates of all
 	 * of the auctions. If it is, a winner is set if the current highest bid is higher than the minimum

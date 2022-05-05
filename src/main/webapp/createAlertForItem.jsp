@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="javaClasses.*"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 <!DOCTYPE html>
 
 <!-- This page is used to allow the user to create an alert for an item they are looking for -->
@@ -15,8 +17,8 @@
 			<a href='logout.jsp'>Log out</a>
 		</div>
 		<br/>
-		<div>
-			<form action="processNewAlertForItem.jsp" method="POST">
+		
+			<form action="testing.jsp" method="POST">
 				Vehicle Type: 
 				<input type="radio" name="vehicleType" value="Car"/>Car
 				<input type="radio" name="vehicleType" value="Suv"/>Suv
@@ -34,6 +36,6 @@
 				Mileage: <input type="text" name="mileage"/> <br/>
 				<input type="submit" value="Create Alert"/>
 			</form>
-		</div>
+		
 	</body>
 </html>

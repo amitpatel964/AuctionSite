@@ -158,6 +158,9 @@
 		statement.executeUpdate("insert into motorcycle values('" + hasStorage + "','" + typeOfMotorCycle + "','" + vin + "')");
 	}
 	
+	// Check if this item matches any item alerts
+	HelperFunctions.checkForMatchingItemAlert(auctionID, vehicleType, manufacturer, model, year, newOrUsed, mileage, session.getAttribute("user").toString());
+	
 	out.println("Auction made!");
 	out.println("<a href='userHomePage.jsp'> Click here to go to your home page </a>");
 %>

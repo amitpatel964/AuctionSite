@@ -58,26 +58,37 @@ From here, the user is able to create an auction, search of an auction, and view
 			
 				// Check if the user was outbid or if they won or lost any auctions
 				List<Alert> alertsForUser = HelperFunctions.getAlertsForBidOrWinner(session.getAttribute("user").toString());
-				if (alertsForUser.size() == 0) {
+				List<Alert> alertsForUserNewItem = HelperFunctions.getAlertsForNewItem(session.getAttribute("user").toString());
+				if (alertsForUser.size() == 0 && alertsForUserNewItem.size() == 0) {
 					out.println("No alerts at the moment. Please refresh the page if you want to double check");
 				} else {
 					for (int i = 0; i < alertsForUser.size(); i++) {
 						Alert currentAlert = alertsForUser.get(i);
 						if (currentAlert.getAlertType().equals("outbid")) {
 							out.println("You have been outbid in the auction for " + currentAlert.getAuctionID());
-							out.println("Click the button below to go to the auction"); %>
+							out.println("Click the button to the right to go to the auction"); %>
 							<input type="hidden" name="idHelper" value="<%= currentAlert.getAuctionID() %>"/>
 							<input type="submit" value="Go to auction"/> <br/> <%
 						} else if (currentAlert.getAlertType().equals("auctionWinner")) {
 							out.println("Congratulations, you won the auction for " + currentAlert.getAuctionID());
-							out.println("Click the button below to go to the auction"); %>
+							out.println("Click the button to the right to go to the auction"); %>
 							<input type="hidden" name="idHelper" value="<%= currentAlert.getAuctionID() %>"/>
 							<input type="submit" value="Go to auction"/> <br/> <%
 						} else if (currentAlert.getAlertType().equals("auctionLost")) {
 							out.println("Unfortunately, you lost the auction for " + currentAlert.getAuctionID());
-							out.println("Click the button below to go to the auction"); %>
+							out.println("Click the button to the right to go to the auction"); %>
 							<input type="hidden" name="idHelper" value="<%= currentAlert.getAuctionID() %>"/>
 							<input type="submit" value="Go to auction"/> <br/> <%	
+						} 
+					}
+					
+					for (int i = 0; i < alertsForUserNewItem.size(); i++) {
+						Alert currentAlert = alertsForUserNewItem.get(i);
+						if (true) {
+							out.println("A new auction was made matching your item requirements!");
+							out.println("Click the button to the right to go to the auction"); %>
+							<input type="hidden" name="idHelper" value="<%= currentAlert.getAuctionID() %>"/>
+							<input type="submit" value="Go to auction"/> <br/> <%
 						}
 					}
 				}

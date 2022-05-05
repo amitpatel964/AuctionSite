@@ -169,6 +169,7 @@ DROP TABLE IF EXISTS `alertForNewItems`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `alertForNewItems` (
+	`alertID` int NOT NULL DEFAULT 0,
     `username` varchar(50) DEFAULT NULL,
     `auctionID` int DEFAULT 0,
     `vehicleType` varchar(10) DEFAULT NULL,
@@ -178,6 +179,6 @@ CREATE TABLE `alertForNewItems` (
     `newOrUsed` varchar(10) DEFAULT NULL,
     `mileage` int DEFAULT 0,
     `wasSeen` varchar(5) DEFAULT NULL,
-    foreign key(`username`) references `user`(`username`),
-    foreign key(`auctionID`) references `auction`(`auctionID`)
+    primary key(`alertID`),
+    foreign key(`username`) references `user`(`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
