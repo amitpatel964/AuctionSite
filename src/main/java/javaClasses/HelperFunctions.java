@@ -740,7 +740,6 @@ public class HelperFunctions {
 		
 		return sortedList;
 	}
-	
 	/**
 	 * Admin creates Customer Representatives
 	 * 
@@ -761,30 +760,58 @@ public class HelperFunctions {
 	 * @param auctions
 	 * @throws SQLException
 	 */
-	public static void salesReport(List<Auction> auctions, Vehicle vehicle) throws SQLException {
+	public static void salesReport(List<Auction> auctions) throws SQLException {
 		
 		ApplicationDB db = new ApplicationDB();
 		java.sql.Connection con = db.getConnection();
 		
 		java.sql.Statement statement = con.createStatement();
 		
+		List<Vehicle> vehicles = new ArrayList<>();
+		for(int i = 0; i < auctions.size(); i++) {
+			vehicles.add(getVehicleFromAuctionID(auctions.get(i).getAuctionID()));
+		}
+		
 		//Total Earnings
 		ResultSet totalEarnings = statement.executeQuery("select sum(currentPrice) from auctions where endingDate < now() and winner is not null");
-
+		while(totalEarnings.next()) {
+			float sum = totalEarnings.getFloat("sum");
+		}
+		
 		//Earnings Per Vehicle
-		ResultSet earningsPerVehicle = statement.executeQuery("select v.vin, a.sum(currentPrice) from auction a, vehicle v where a.endingDate < now() and a.winner is not null group and a.auctionID = v.auctionID by v.auctionID");
-
+		ResultSet earningsPerVehicle = statement.executeQuery("select v.vin, a.sum(currentPrice) from auctions a, vehicles v where a.endingDate < now() and a.winner is not null group and a.auctionID = v.auctionID group by v.vin");
+		while(earningsPerVehicle.next()) {
+			int vehicleID = earningsPerVehicle.getInt("vehicleID");
+			float sum2 = earningsPerVehicle.getFloat("sum2");
+		}
+		
 		//Earnings Per Vehicle Type
 		ResultSet earningsPerType = statement.executeQuery("select vehicleType, sum(currentPrice) from auctions where endingDate < now() and winner is not null group by vehicleType");
-
+		while(earningsPerType.next()) {
+			String vehicleType = earningsPerVehicle.getString("vehicleType");
+			float sum3 = earningsPerVehicle.getFloat("sum3");
+		}
+		
 		//Earnings Per User
 		ResultSet earningsPerUser = statement.executeQuery("select creator, sum(currentPrice) from auctions where endingDate < now() and winner is not null group by creator");
+		while(earningsPerUser.next()) {
+			String userName = earningsPerUser.getString("userName");
+			float sum4 = earningsPerUser.getFloat("sum4");
+		}
 		
 		//Best Selling Vehicles
 		ResultSet bestItems = statement.executeQuery("select vehicleType, count(vehicleTypes) from auctions where endingDate < now() and winner is not null group by vehicleType order by count(vehicleTypes) desc");
+		while(bestItems.next()) {
+			String vehicleType = bestItems.getString("vehicleType");
+			float sum5 = bestItems.getFloat("sum5");
+		}
 		
 		//Best Buyers
 		ResultSet bestBuyers = statement.executeQuery("select winner, sum(currentPrice) from auctions group by winner order by sum(currentPrice) desc");
+		while(bestBuyers.next()) {
+			String bestBuys = bestBuyers.getString("bestBuys");
+			float sum6 = bestBuyers.getFloat("sum6");
+		}
 		
 		statement.close();
 		con.close();
