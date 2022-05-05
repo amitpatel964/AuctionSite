@@ -21,6 +21,7 @@ CREATE TABLE `user` (
     `firstName` varchar(50) DEFAULT NULL,
     `lastName` varchar(50) DEFAULT NULL,
 	`password` varchar(50) DEFAULT NULL,
+    `isCustRep` boolean DEFAULT 0,
 	primary key (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -160,6 +161,23 @@ CREATE TABLE `alertNotifyIfOutbid` (
 	`shouldNotify` varchar(5) DEFAULT NULL,
     `username` varchar(50) DEFAULT NULL,
     `auctionID` int DEFAULT 0,
+    foreign key(`username`) references `user`(`username`),
+    foreign key(`auctionID`) references `auction`(`auctionID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `alertForNewItems`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `alertForNewItems` (
+    `username` varchar(50) DEFAULT NULL,
+    `auctionID` int DEFAULT 0,
+    `vehicleType` varchar(10) DEFAULT NULL,
+    `manufacturer` varchar(50) DEFAULT NULL,
+    `model` varchar(50) DEFAULT NULL,
+    `year` int DEFAULT 0,
+    `newOrUsed` varchar(10) DEFAULT NULL,
+    `mileage` int DEFAULT 0,
+    `wasSeen` varchar(5) DEFAULT NULL,
     foreign key(`username`) references `user`(`username`),
     foreign key(`auctionID`) references `auction`(`auctionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

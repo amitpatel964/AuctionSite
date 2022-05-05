@@ -42,6 +42,13 @@ From here, the user is able to create an auction, search of an auction, and view
 			<input type="hidden" name="username" value="<%= session.getAttribute("user") %>"/>
 			<input type="submit" value="View Auction History"/>
 		</form>
+		<form action="createAlertForItem.jsp" method="POST">
+			<p>
+				Click the button below to create an alert for an item you are looking for.
+			</p>
+			<input type="hidden" name="username" value="<%= session.getAttribute("user") %>"/>
+			<input type="submit" value="Create Alert"/>
+		</form>
 		
 		<h1>Alerts</h1><br/>
 		<form action="showAuctionDetails.jsp" method="POST">
