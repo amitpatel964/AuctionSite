@@ -483,8 +483,148 @@ public class HelperFunctions {
 			}
 		}
 		
-		for (int i = 0; i < sortedList.size(); i++) {
-			System.out.println(sortedList.get(i).getAuctionID());
+		return sortedList;
+	}
+	
+	/**
+	 * Sorts the list of auctions alphabetically by vehicle type
+	 * 
+	 * @param allAuctions
+	 * @return
+	 * @throws SQLException
+	 */
+	public static List<Auction> sortAuctionsByVehicleType(List<Auction> allAuctions) throws SQLException {
+		List<Auction> sortedList = new ArrayList<>();
+		
+		sortedList.add(allAuctions.get(0));
+		
+		for (int i = 1; i < allAuctions.size(); i++) {
+			for (int j = 0; j < i; j++) {
+				if (allAuctions.get(i).getVehicleType().compareTo(sortedList.get(j).getVehicleType()) < 0) {
+					if (j == 0) {
+						sortedList.add(0,allAuctions.get(i));
+					} else {
+						sortedList.add(j,allAuctions.get(i));
+					}
+					break;
+				}
+				
+				if (j == i - 1) {
+					sortedList.add(allAuctions.get(i));
+				}
+			}
+		}
+		
+		return sortedList;
+	}
+	
+	/**
+	 * Sorts the list of auctions by miles per gallon descending
+	 * 
+	 * @param allAuctions
+	 * @return
+	 * @throws SQLException
+	 */
+	public static List<Auction> sortAuctionsByMilesPerGallon(List<Auction> allAuctions) throws SQLException {
+		List<Auction> sortedList = new ArrayList<>();
+		List<Vehicle> listOfVehicles = new ArrayList<>();
+		
+		for (Auction auction: allAuctions) {
+			Vehicle vehicle = getVehicleFromAuctionID(auction.getAuctionID());
+			listOfVehicles.add(vehicle);
+		}
+		
+		sortedList.add(allAuctions.get(0));
+		
+		for (int i = 1; i < allAuctions.size(); i++) {
+			Vehicle vehicle = listOfVehicles.get(i);
+			for (int j = 0; j < i; j++) {
+				Vehicle vehicleToCompareTo = getVehicleFromAuctionID(sortedList.get(j).getAuctionID());
+				if (vehicle.getMilesPerGallon() > vehicleToCompareTo.getMilesPerGallon()) {
+					if (j == 0) {
+						sortedList.add(0,allAuctions.get(i));
+					} else {
+						sortedList.add(j,allAuctions.get(i));
+					}
+					break;
+				}
+				
+				if (j == i - 1) {
+					sortedList.add(allAuctions.get(i));
+				}
+			}
+		}
+		
+		return sortedList;
+	}
+	
+	/**
+	 * Sorts the list of auctions by mileage by ascending
+	 * 
+	 * @param allAuctions
+	 * @return
+	 * @throws SQLException
+	 */
+	public static List<Auction> sortAuctionsByMileage(List<Auction> allAuctions) throws SQLException {
+		List<Auction> sortedList = new ArrayList<>();
+		List<Vehicle> listOfVehicles = new ArrayList<>();
+		
+		for (Auction auction: allAuctions) {
+			Vehicle vehicle = getVehicleFromAuctionID(auction.getAuctionID());
+			listOfVehicles.add(vehicle);
+		}
+		
+		sortedList.add(allAuctions.get(0));
+		
+		for (int i = 1; i < allAuctions.size(); i++) {
+			Vehicle vehicle = listOfVehicles.get(i);
+			for (int j = 0; j < i; j++) {
+				Vehicle vehicleToCompareTo = getVehicleFromAuctionID(sortedList.get(j).getAuctionID());
+				if (vehicle.getMileage() < vehicleToCompareTo.getMileage()) {
+					if (j == 0) {
+						sortedList.add(0,allAuctions.get(i));
+					} else {
+						sortedList.add(j,allAuctions.get(i));
+					}
+					break;
+				}
+				
+				if (j == i - 1) {
+					sortedList.add(allAuctions.get(i));
+				}
+			}
+		}
+		
+		return sortedList;
+	}
+	
+	/**
+	 * Sort the list of auctions by current price ascending
+	 * 
+	 * @param allAuctions
+	 * @return
+	 * @throws SQLException
+	 */
+	public static List<Auction> sortAuctionsByCurrentPrice(List<Auction> allAuctions) throws SQLException {
+		List<Auction> sortedList = new ArrayList<>();
+		
+		sortedList.add(allAuctions.get(0));
+		
+		for (int i = 1; i < allAuctions.size(); i++) {
+			for (int j = 0; j < i; j++) {
+				if (allAuctions.get(i).getCurrentPrice() < sortedList.get(j).getCurrentPrice()) {
+					if (j == 0) {
+						sortedList.add(0,allAuctions.get(i));
+					} else {
+						sortedList.add(j,allAuctions.get(i));
+					}
+					break;
+				}
+				
+				if (j == i - 1) {
+					sortedList.add(allAuctions.get(i));
+				}
+			}
 		}
 		
 		return sortedList;

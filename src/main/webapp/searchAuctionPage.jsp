@@ -55,10 +55,21 @@
 				<input type="text" name="maxMileage"/> <br/><br/>
 				Minimum Miles Per Gallon </br> 
 				<input type="text" name="minimumMPG"/> <br/><br/>
+				<label for="status">Auction Status</label> </br>
+					<select name="status" id="status">
+					<option value="">--Choose Auction Status--</option>
+						<option value="">Open and Closed</option>
+						<option value="open">Open only</option>
+					</select>
+				</br> </br>
 				<label for="sortAuctions">Sort Auctions</label> </br>
 					<select name="sortAuctions" id="sortAuctions">
 						<option value="">--Choose how to Sort Auctions--</option>
 						<option value="Manufacturer">Manufacturer</option>
+						<option value="VehicleType">Vehicle Type</option>
+						<option value="MilesPerGallon">Miles Per Gallon - Descending</option>
+						<option value="Mileage">Mileage - Ascending</option>
+						<option value="CurrentPrice">Current Price - Ascending</option>
 					</select>
 				</br> </br>
 			<input type="submit" value="Filter and/or Sort Auctions"/>
@@ -124,6 +135,13 @@
 				maxMileageString = "";
 			}
 			
+			String status;
+			try {
+				status = request.getParameter("status");
+			} catch (NumberFormatException e) {
+				status = "";
+			}
+			
 			String sortType;
 			try {
 				sortType = request.getParameter("sortAuctions");
@@ -137,6 +155,18 @@
 			if (sortType != null && !sortType.equals("")){
 				if (sortType.equals("Manufacturer")){
 					List<Auction> sortedList = HelperFunctions.sortAuctionsByManufacturer(allAuctions);
+					allAuctions = sortedList;
+				} else if (sortType.equals("VehicleType")) {
+					List<Auction> sortedList = HelperFunctions.sortAuctionsByVehicleType(allAuctions);
+					allAuctions = sortedList;
+				} else if (sortType.equals("MilesPerGallon")) {
+					List<Auction> sortedList = HelperFunctions.sortAuctionsByMilesPerGallon(allAuctions);
+					allAuctions = sortedList;
+				} else if (sortType.equals("Mileage")) {
+					List<Auction> sortedList = HelperFunctions.sortAuctionsByMileage(allAuctions);
+					allAuctions = sortedList;
+				} else if (sortType.equals("CurrentPrice")) {
+					List<Auction> sortedList = HelperFunctions.sortAuctionsByCurrentPrice(allAuctions);
 					allAuctions = sortedList;
 				}
 			}
@@ -192,6 +222,11 @@
 						maxMileage = 0;
 					}
 					if (maxMileage < vehicle.getMileage()) {
+						continue;
+					}
+				}
+				if (status != null && !status.equals("")){
+					if (!status.equals(allAuctions.get(i).getStatus())) {
 						continue;
 					}
 				}
