@@ -20,7 +20,7 @@ I. Auctions <br/>
  
 II. Browsing and advanced search functionality <br/>
     ---[X] let people browse on the items and see the status of the current bidding <br/>
-    ---[] sort by different criteria (by type, bidding price etc.) <br/>
+    ---[X] sort by different criteria (by type, bidding price etc.) <br/>
     ---[X] search the list of items by various criteria. <br/>
     ---[] a user should be able to: <br/>
     ------[X] view all the history of bids for any specific auction <br/>
@@ -37,11 +37,11 @@ I||. Admin and customer rep functions <br/>
     ------[] generates sales reports for: <br/>
     ---------[] total earnings <br/>
     ---------[] earnings per: <br/>
-    ---------[] item <br/>
-    ---------[] item type <br/>
-    ---------[] end-user <br/>
-    ---------[] best-selling items <br/> 
-    ---------[] best buyers <br/>
+    ------------[] item <br/>
+    ------------[] item type <br/>
+    ------------[] end-user <br/>
+    ------------[] best-selling items <br/> 
+    ------------[] best buyers <br/>
     ---[] Customer representative functions: <br/>
     ------[] users post questions to the customer representatives (i.e. customer service) <br/>
     ------[] reps reply to user questions <br/>
