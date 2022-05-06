@@ -87,9 +87,14 @@
 		out.println("<a href='createAuctionPage.jsp'> Click here to try again </a>");
 		return;
 	}
+	
+	String temp = "2022-04-06 12:00";
+	DateTimeFormatter temp2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+	startingDateTime = LocalDateTime.parse(temp, temp2);
+	
 	String dateAndTime = endingDate + " " + endingTime;
 	DateTimeFormatter formatter;
-	LocalDateTime endingDateTime;
+	LocalDateTime endingDateTime;	
 				
 	try {
 		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -157,6 +162,9 @@
 		String typeOfMotorCycle = request.getParameter("typeOfMotorCycle");
 		statement.executeUpdate("insert into motorcycle values('" + hasStorage + "','" + typeOfMotorCycle + "','" + vin + "')");
 	}
+	
+	statement.close();
+	con.close();
 	
 	// Check if this item matches any item alerts
 	HelperFunctions.checkForMatchingItemAlert(auctionID, vehicleType, manufacturer, model, year, newOrUsed, mileage, session.getAttribute("user").toString());

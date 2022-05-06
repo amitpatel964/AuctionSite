@@ -19,11 +19,21 @@
 	
 	// Chcek to see if the user exists and if the password is correct
 	if (result.next()) {
-		session.setAttribute("user", username);
-		out.println("Welcome " + username);
-		out.println("<a href='logout.jsp'> Logout </a>");
-		response.sendRedirect("successLogin.jsp");
-		return;
+		
+		int isCustRep = result.getInt("isCustRep");
+		
+		if (isCustRep == 0) {
+			session.setAttribute("user", username);
+			out.println("Welcome " + username);
+			out.println("<a href='logout.jsp'> Logout </a>");
+			response.sendRedirect("successLogin.jsp");
+			return;
+		} else {
+			session.setAttribute("user", username);
+			out.println("Welcome " + username);
+			out.println("<a href='logout.jsp'> Logout </a>");
+			response.sendRedirect("successLoginCustRep.jsp");
+		}
 	}
 	
 	ResultSet resultAdmin = statement.executeQuery("select * from admin where username='" + username 

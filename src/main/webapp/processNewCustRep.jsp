@@ -25,8 +25,9 @@
 		out.println("<a href='createCustReps.jsp'> Click here to try again </a>");
 		return;
 	}else{
-		HelperFunctions.createCustomReps(Integer.parseInt(id), firstName, lastName, password, email, true, false);
+		HelperFunctions.createCustomReps(id, firstName, lastName, password, email, true, false);
 	}
 	
 	out.println("Customer Representative made!");
 	out.println("<a href='adminHomePage.jsp'> Click here to go to your home page </a>");
+%>

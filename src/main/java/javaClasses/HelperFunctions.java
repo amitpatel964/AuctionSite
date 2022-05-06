@@ -88,11 +88,12 @@ public class HelperFunctions {
 		
 		LocalDate currentDate = LocalDate.now();
 		LocalDate monthBeforeDate = currentDate.minusMonths(1).withDayOfMonth(1);
+		LocalDate beginningOfCurrentMonth = currentDate.withDayOfMonth(1);
 		
 		while (auctionsSet.next()) {
 			LocalDate startingDate = auctionsSet.getTimestamp("startingDate").toLocalDateTime().toLocalDate();
 			
-			if (!startingDate.isBefore(monthBeforeDate)) {
+			if (!startingDate.isBefore(beginningOfCurrentMonth) || !startingDate.isAfter(monthBeforeDate)) {
 				continue;
 			}
 			
@@ -318,8 +319,6 @@ public class HelperFunctions {
 			}
 		}
 		
-//		statement.close();
-//		con.close();
 	}
 	
 	/**
@@ -799,15 +798,25 @@ public class HelperFunctions {
 	/**
 	 * Admin creates Customer Representatives
 	 * 
-	 * @param i, first, last, pw, mail, cr, ad
-	 * @return custRep
+	 * @param id, first, last, pw, mail, cr, ad
+	 * @throws SQLException 
 	 * 
 	 */
-	public static User createCustomReps(int i, String first, String last, String pw, String mail, boolean cr, boolean ad) {
+	public static void createCustomReps(String id, String first, String last, String pw, String mail, boolean cr, boolean ad) throws SQLException {
 		
-		User custRep = new User(i, first, last, pw, mail, true, false);
+//		User custRep = new User(i, first, last, pw, mail, true, false);
 		
-		return custRep;
+		ApplicationDB db = new ApplicationDB();
+		java.sql.Connection con = db.getConnection();
+		
+		java.sql.Statement statement = con.createStatement();
+		
+		statement.executeUpdate("insert into user values('" + id + "','" + mail + "','" + first + "','" + last + "','" + pw + "','1')");
+		
+		statement.close();
+		con.close();
+		
+//		return custRep;
 	}
 	
 	/**
@@ -829,7 +838,7 @@ public class HelperFunctions {
 		}
 		List<SalesReport> report = new ArrayList<>();
 		//Total Earnings
-		ResultSet totalEarnings = statement.executeQuery("select sum(currentPrice) as s from auction where endingDate < now() and winner is not null");
+		ResultSet totalEarnings = statement.executeQuery("select sum(currentPrice) as s from auction where endingDate < now() and winner != ''");
 		while(totalEarnings.next()) {
 			SalesReport sr = new SalesReport(0, 0, 0, "", "", "");
 			sr.setSum(totalEarnings.getFloat("s"));
@@ -837,7 +846,7 @@ public class HelperFunctions {
 		}
 		
 		//Earnings Per Vehicle
-		ResultSet earningsPerVehicle = statement.executeQuery("select v.vin as vin, sum(a.currentPrice) as s from auction a, vehicle v where a.status = 'closed' and a.auctionID = v.auctionID group by v.vin");
+		ResultSet earningsPerVehicle = statement.executeQuery("select v.vin as vin, sum(a.currentPrice) as s from auction a, vehicle v where a.status = 'closed' and winner != '' and a.auctionID = v.auctionID group by v.vin");
 		while(earningsPerVehicle.next()) {
 			SalesReport sr = new SalesReport(0, 0, 0, "", "", "");
 			sr.setVin(earningsPerVehicle.getInt("vin"));
@@ -846,7 +855,7 @@ public class HelperFunctions {
 		}
 		
 		//Earnings Per Vehicle Type
-		ResultSet earningsPerType = statement.executeQuery("select vehicleType, sum(currentPrice) as s from auction where status = 'closed' group by vehicleType");
+		ResultSet earningsPerType = statement.executeQuery("select vehicleType, sum(currentPrice) as s from auction where status = 'closed' and winner != '' group by vehicleType");
 		while(earningsPerType.next()) {
 			SalesReport sr = new SalesReport(0, 0, 0, "", "", "");
 			sr.setVehicleType(earningsPerType.getString("vehicleType"));
@@ -855,7 +864,7 @@ public class HelperFunctions {
 		}
 		
 		//Earnings Per User
-		ResultSet earningsPerUser = statement.executeQuery("select creator, sum(currentPrice) as s from auction where status = 'closed' group by creator");
+		ResultSet earningsPerUser = statement.executeQuery("select creator, sum(currentPrice) as s from auction where status = 'closed' and winner != '' group by creator");
 		while(earningsPerUser.next()) {
 			SalesReport sr = new SalesReport(0, 0, 0, "", "", "");
 			sr.setUsername(earningsPerUser.getString("creator"));
@@ -864,7 +873,7 @@ public class HelperFunctions {
 		}
 		
 		//Best Selling Vehicles
-		ResultSet bestItems = statement.executeQuery("select vehicleType, count(vehicleType) as c from auction where status = 'closed' group by vehicleType order by count(vehicleType) desc");
+		ResultSet bestItems = statement.executeQuery("select vehicleType, count(vehicleType) as c from auction where status = 'closed' and winner != '' group by vehicleType order by count(vehicleType) desc");
 		while(bestItems.next()) {
 			SalesReport sr = new SalesReport(0, 0, 0, "", "", "");
 			sr.setVehicleType(bestItems.getString("vehicleType"));
@@ -872,9 +881,8 @@ public class HelperFunctions {
 			report.add(sr);
 		}
 
-		
 		//Best Buyers
-		ResultSet bestBuyers = statement.executeQuery("select winner, sum(currentPrice) as s from auction where status = 'closed' group by winner order by sum(currentPrice) desc");
+		ResultSet bestBuyers = statement.executeQuery("select winner, sum(currentPrice) as s from auction where status = 'closed' and winner != '' group by winner order by sum(currentPrice) desc");
 		while(bestBuyers.next()) {
 			SalesReport sr = new SalesReport(0, 0, 0, "", "", "");
 			sr.setUsername(bestBuyers.getString("winner"));

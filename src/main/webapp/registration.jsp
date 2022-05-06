@@ -45,7 +45,7 @@
 		errorCount++;
 	} 
 	if (errorCount==0) {
-		statement.executeUpdate("insert into user values('" + username + "','" + email + "','" + firstName + "','" + lastName + "','" + password + "','" + 0 + "')");
+		statement.executeUpdate("insert into user values('" + username + "','" + email + "','" + firstName + "','" + lastName + "','" + password + "','0')");
 		out.println("Registration successful!");
 		out.println("<a href='login.jsp'> Click here to login </a>");
 	} else {

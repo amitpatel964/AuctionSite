@@ -18,10 +18,7 @@ From here, the user is able to create an auction, search of an auction, and view
 		<a href='logout.jsp'>Log out</a>
 		
 		<br>
-		Work in progress. <br>
-		The home page should allow the user to search for auctions and see what auctions they bidded on. <br>
-		Auctions created by the user and the ability for the user to create an auction should also be added. <br>
-		It should also have a history of bids and items they sold.
+		Welcome to our auction site! We let users buy and sell vehicles. <br>
 		
 		<form action="createAuctionPage.jsp" method="POST">
 			<p>

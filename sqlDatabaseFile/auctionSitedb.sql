@@ -21,7 +21,7 @@ CREATE TABLE `user` (
     `firstName` varchar(50) DEFAULT NULL,
     `lastName` varchar(50) DEFAULT NULL,
 	`password` varchar(50) DEFAULT NULL,
-    `isCustRep` boolean DEFAULT 0,
+    `isCustRep` int DEFAULT 0,
 	primary key (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
