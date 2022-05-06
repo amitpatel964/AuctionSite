@@ -17,7 +17,7 @@ import com.mysql.jdbc.Statement;
  * This class contains all helper functions that are used throughout various files in the project.
  * All methods should be static in this class.
  * 
- * @author Amit
+ * @author Amit, Michael
  *
  */
 
@@ -816,7 +816,7 @@ public class HelperFunctions {
 	 * @param auctions
 	 * @throws SQLException
 	 */
-	public static void salesReport(List<Auction> auctions) throws SQLException {
+	public static List<SalesReport> salesReport(List<Auction> auctions) throws SQLException {
 		
 		ApplicationDB db = new ApplicationDB();
 		java.sql.Connection con = db.getConnection();
@@ -827,50 +827,64 @@ public class HelperFunctions {
 		for(int i = 0; i < auctions.size(); i++) {
 			vehicles.add(getVehicleFromAuctionID(auctions.get(i).getAuctionID()));
 		}
-		
+		List<SalesReport> report = new ArrayList<>();
 		//Total Earnings
 		ResultSet totalEarnings = statement.executeQuery("select sum(currentPrice) as s from auction where endingDate < now() and winner is not null");
 		while(totalEarnings.next()) {
-			float sum = totalEarnings.getFloat("s");
+			SalesReport sr = new SalesReport(0, 0, 0, "", "", "");
+			sr.setSum(totalEarnings.getFloat("s"));
+			report.add(sr);
 		}
 		
 		//Earnings Per Vehicle
 		ResultSet earningsPerVehicle = statement.executeQuery("select v.vin as vin, sum(a.currentPrice) as s from auction a, vehicle v where a.status = 'closed' and a.auctionID = v.auctionID group by v.vin");
 		while(earningsPerVehicle.next()) {
-			int vehicleID = earningsPerVehicle.getInt("vin");
-			float sum2 = earningsPerVehicle.getFloat("s");
+			SalesReport sr = new SalesReport(0, 0, 0, "", "", "");
+			sr.setVin(earningsPerVehicle.getInt("vin"));
+			sr.setSum(earningsPerVehicle.getFloat("s"));
+			report.add(sr);
 		}
 		
 		//Earnings Per Vehicle Type
 		ResultSet earningsPerType = statement.executeQuery("select vehicleType, sum(currentPrice) as s from auction where status = 'closed' group by vehicleType");
 		while(earningsPerType.next()) {
-			String vehicleType = earningsPerType.getString("vehicleType");
-			float sum3 = earningsPerType.getFloat("s");
+			SalesReport sr = new SalesReport(0, 0, 0, "", "", "");
+			sr.setVehicleType(earningsPerType.getString("vehicleType"));
+			sr.setSum(earningsPerType.getFloat("s"));
+			report.add(sr);
 		}
 		
 		//Earnings Per User
 		ResultSet earningsPerUser = statement.executeQuery("select creator, sum(currentPrice) as s from auction where status = 'closed' group by creator");
 		while(earningsPerUser.next()) {
-			String userName = earningsPerUser.getString("creator");
-			float sum4 = earningsPerUser.getFloat("s");
+			SalesReport sr = new SalesReport(0, 0, 0, "", "", "");
+			sr.setUsername(earningsPerUser.getString("creator"));
+			sr.setSum(earningsPerUser.getFloat("s"));
+			report.add(sr);
 		}
 		
 		//Best Selling Vehicles
 		ResultSet bestItems = statement.executeQuery("select vehicleType, count(vehicleType) as c from auction where status = 'closed' group by vehicleType order by count(vehicleType) desc");
 		while(bestItems.next()) {
-			String vehicleType = bestItems.getString("vehicleType");
-			float sum5 = bestItems.getFloat("c");
+			SalesReport sr = new SalesReport(0, 0, 0, "", "", "");
+			sr.setVehicleType(bestItems.getString("vehicleType"));
+			sr.setCount(bestItems.getInt("c"));
+			report.add(sr);
 		}
+
 		
 		//Best Buyers
 		ResultSet bestBuyers = statement.executeQuery("select winner, sum(currentPrice) as s from auction where status = 'closed' group by winner order by sum(currentPrice) desc");
 		while(bestBuyers.next()) {
-			String bestBuys = bestBuyers.getString("winner");
-			float sum6 = bestBuyers.getFloat("s");
+			SalesReport sr = new SalesReport(0, 0, 0, "", "", "");
+			sr.setUsername(bestBuyers.getString("winner"));
+			sr.setSum(bestBuyers.getFloat("s"));
+			report.add(sr);
 		}
 		
 		statement.close();
 		con.close();
+		
+		return report;
 	}
 }
-
