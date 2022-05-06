@@ -144,6 +144,12 @@
 			<input type="submit" value="Go to Bid History"/>
 		</form>
 		<br/>
+		Show similar items from preceding month:
+		<form action="showSimilarItems.jsp" method="POST">
+			<input type="hidden" name="idHelper" value="<%= auctionID %>"/>
+			<input type="submit" value="Show similar items"/>
+		</form>
+		<br/>
 		<form action="placeBid.jsp" method="POST">
 		Do you want a notification if you get outbid? <br/>
 			<input type="radio" name="wantAlertIfOutbid" value="Yes" checked="checked"/>Yes

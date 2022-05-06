@@ -3,8 +3,10 @@ package javaClasses;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -57,6 +59,53 @@ public class HelperFunctions {
 					minimumSellingPrice, bidIncrement, vehicleType, startingDate, endingDate, autoBidHighest,
 					currentHighestBidder, winner, status);
 			auctions.add(auctionToAddToList);
+		}
+		
+		statement.close();
+		con.close();
+		
+		return auctions;
+	}
+	
+	/**
+	 * This method is used to get the auctions that are similar to an item and were made in the month before.
+	 * 
+	 * @param vehicleType
+	 * @param manufacturer
+	 * @param model
+	 * @return
+	 * @throws SQLException
+	 */
+	public static List<Auction> getSimilarItems(String vehicleType, String manufacturer, String model) throws SQLException {
+		List<Auction> auctions = new ArrayList<>();
+		
+		ApplicationDB db = new ApplicationDB();
+		java.sql.Connection con = db.getConnection();
+		
+		java.sql.Statement statement = con.createStatement();
+		
+		ResultSet auctionsSet = statement.executeQuery("select * from auction where vehicleType = '"+vehicleType+"'");
+		
+		LocalDate currentDate = LocalDate.now();
+		LocalDate monthBeforeDate = currentDate.minusMonths(1).withDayOfMonth(1);
+		
+		while (auctionsSet.next()) {
+			LocalDate startingDate = auctionsSet.getTimestamp("startingDate").toLocalDateTime().toLocalDate();
+			
+			if (!startingDate.isBefore(monthBeforeDate)) {
+				continue;
+			}
+			
+			int auctionID = auctionsSet.getInt("auctionID");
+			
+			Vehicle vehicle = getVehicleFromAuctionID(auctionID);
+			String manufacturerToCompare = vehicle.getManufacturer().toLowerCase();
+			String modelToCompare = vehicle.getModel().toLowerCase();
+			
+			if (manufacturer.toLowerCase().equals(manufacturerToCompare) && 
+					model.toLowerCase().equals(modelToCompare)) {
+				auctions.add(getAuction(auctionID));
+			}
 		}
 		
 		statement.close();
@@ -156,7 +205,13 @@ public class HelperFunctions {
 		return alertsForUser;
 	}
 	
-	
+	/**
+	 * This method is used to get any alerts for new items for a user if they were not seen yet
+	 * 
+	 * @param currentUser
+	 * @return
+	 * @throws SQLException
+	 */
 	public static List<Alert> getAlertsForNewItem(String currentUser) throws SQLException {
 		List<Alert> alertsForUser = new ArrayList<>();
 		ApplicationDB db = new ApplicationDB();

@@ -18,7 +18,7 @@
 		</div>
 		<br/>
 		
-			<form action="testing.jsp" method="POST">
+			<form action="processAlert.jsp" method="POST">
 				Vehicle Type: 
 				<input type="radio" name="vehicleType" value="Car"/>Car
 				<input type="radio" name="vehicleType" value="Suv"/>Suv
