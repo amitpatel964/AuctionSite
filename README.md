@@ -22,10 +22,10 @@ II. Browsing and advanced search functionality <br/>
     ---[X] let people browse on the items and see the status of the current bidding <br/>
     ---[X] sort by different criteria (by type, bidding price etc.) <br/>
     ---[X] search the list of items by various criteria. <br/>
-    ---[] a user should be able to: <br/>
+    ---[X] a user should be able to: <br/>
     ------[X] view all the history of bids for any specific auction <br/>
     ------[X] view the list of all auctions a specific buyer or seller has participated in <br/>
-    ------[] view the list of "similar" items on auctions in the preceding month (and auction information about them) <br/>
+    ------[X] view the list of "similar" items on auctions in the preceding month (and auction information about them) <br/>
     ---[X] let user set an alert for specific items s/he is interested <br/>
     ------[X] get an alert when the item becomes available <br/>
     ---[] users browse questions and answers <br/>
