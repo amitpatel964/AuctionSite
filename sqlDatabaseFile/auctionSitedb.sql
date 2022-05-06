@@ -182,3 +182,17 @@ CREATE TABLE `alertForNewItems` (
     primary key(`alertID`),
     foreign key(`username`) references `user`(`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `questionAndAnswer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `questionAndAnswer` (
+	`questionID` int NOT NULL DEFAULT 0,
+    `usernameAsker` varchar(50) DEFAULT NULL,
+    `questionTitle` varchar(100) DEFAULT NULL,
+    `questionBodyContent` varchar(1000) DEFAULT NULL,
+    `usernameResponder` varchar(50) DEFAULT NULL,
+    `answerBodyContent` varchar(1000) DEFAULT NULL,
+    `questionAnswered` int DEFAULT 0,
+    primary key(`questionID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
