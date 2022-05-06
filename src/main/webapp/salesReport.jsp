@@ -11,40 +11,89 @@
 <meta charset="ISO-8859-1">
 <title>Sales Report</title>
 </head>
-	<%	Float totalEarnings = (Float)request.getAttribute("totalEarnings");
-		Float earningsPerVehicle[] = (Float[])request.getAttribute("earningsPerVehicle");
-		Float earningsPerType[] = (Float[])request.getAttribute("earningsPerType");
-		Float earningsPerUser[] = (Float[])request.getAttribute("earningsPerUser");
-		List<Vehicle> bestVehicles = (List<Vehicle>)request.getAttribute("bestItems");
-		List<User> bestBuyers = (List<User>)request.getAttribute("bestBuyers");
-		List<User> users = (List<User>)request.getAttribute("id");
-		String vehicleType[] = new String[] {"Car", "Motorcycle", "SUV", "Truck", "Van"};
-	%>
 <body>
-	<h2>Sales Report</h2>
 		<div>
-			<h3>Total Earnings:<h3>
-			<%=totalEarnings%>
-			<h3>Earnings Per Vehicle</h3>
-			<% for (int i = 0; i < earningsPerVehicle.length; i++){%>
-			<%= %> Earnings: <%=earningsPerVehicle[i]%><br/>
-			<%}%>
-			<h3>Earnings Per Vehicle Type</h3>
-			<% for (int i = 0; i < earningsPerType.length; i++){%>
-			<%=vehicleType[i] %> Earnings: <%=earningsPerType[i]%><br/>
-			<%}%>
-			<h3>Earnings Per User</h3>
-			<% for (int i = 0; i < earningsPerUser.length; i++){%>
-			User: <%=users.get(i).getId()%><br/> Earnings: <%=earningsPerUser[i]%><br/>
-			<%}%>
-			<h3>Best Vehicles</h3>
-			<% for (int i = 0; i < bestVehicles.size(); i++){%>
-			Vehicle: <%=bestVehicles.get(i).getVin()%><br/>
-			<%}%>
-			<h3>Best Buyers</h3>
-			<% for (int i = 0; i < bestBuyers.size(); i++){%>
-			User: <%=bestBuyers.get(i).getId()%><br/>
-			<%}%>
+			<a href='adminHomePage.jsp'>Home Page</a>
+		</div>
+			Sales Report
+		<div> 
+		<br/>
+			<%
+			List<Auction> auction = HelperFunctions.getListOfAuctions();
+			if (auction.size() == 0) {
+				out.println("No finished auctions at the moment. Please refresh the page when at least one auction has ended");
+			}else{
+				List<SalesReport> salesReport = HelperFunctions.salesReport(auction);
+				out.println("Total Earnings: $" + salesReport.get(0).getSum()); 
+				%><br/><br/>
+				<%
+				out.println("Earnings Per Vehicle");
+				%><br/>
+				<%
+				int j = 0;
+				for(int i = 1; i < salesReport.size(); i++){
+					if(salesReport.get(i).getVin() != 0){
+						out.println("Vehicle ID: " + salesReport.get(i).getVin() + " Earnings: $" + salesReport.get(i).getSum()); 
+					}else{
+						j = i;
+						break;
+					}
+				}
+				%><br/><br/>
+				<%
+				out.println("Earnings Per Vehicle Type");
+				%><br/>
+				<%
+				for(int i = j; i < salesReport.size(); i++){
+					if(salesReport.get(i).getVehicleType().equals("")){
+						j = i;
+						break;
+					}else{
+						out.println("Vehicle Type: " + salesReport.get(i).getVehicleType() + " Earnings: $" + salesReport.get(i).getSum());
+					}
+				}
+				%><br/><br/>
+				<%
+				out.println("Earnings Per User");
+				%><br/>
+				<%
+				for(int i = j; i < salesReport.size(); i++){
+					if(salesReport.get(i).getUsername().equals("")){
+						j = i;
+						break;
+					}else{
+						out.println("User: " + salesReport.get(i).getUsername() + " Earnings: $" + salesReport.get(i).getSum()); 
+					}
+				}
+				%><br/><br/>
+				<%
+				out.println("Best Items");
+				%><br/>
+				<%
+				for(int i = j; i < salesReport.size(); i++){
+					if(salesReport.get(i).getVehicleType().equals("")){
+						j = i;
+						break;
+					}else{
+						out.println("Vehicle Type: " + salesReport.get(i).getVehicleType() + " Amount Sold: " + salesReport.get(i).getCount()); 
+					}
+				}
+				%><br/><br/>
+				<%
+				out.println("Best Buyers");
+				%><br/>
+				<%
+				for(int i = j; i < salesReport.size(); i++){
+					if(!salesReport.get(i).getVehicleType().equals("")){
+						out.println("User: " + salesReport.get(i).getUsername() + " Amount Spent: $" + salesReport.get(i).getSum());
+					} 
+				}
+				%><br/>
+				<%
+				
+			}
+			%>
+			
 		</div>
 </body>
 </html>
