@@ -34,14 +34,14 @@ II. Browsing and advanced search functionality <br/>
 I||. Admin and customer rep functions <br/>
     ---[X] Admin (create an admin account ahead of time) <br/>
     ------[X] creates accounts for customer representatives <br/>
-    ------[] generates sales reports for: <br/>
-    ---------[] total earnings <br/>
-    ---------[] earnings per: <br/>
-    ------------[] item <br/>
-    ------------[] item type <br/>
-    ------------[] end-user <br/>
-    ------------[] best-selling items <br/> 
-    ------------[] best buyers <br/>
+    ------[X] generates sales reports for: <br/>
+    ---------[X] total earnings <br/>
+    ---------[X] earnings per: <br/>
+    ------------[X] item <br/>
+    ------------[X] item type <br/>
+    ------------[X] end-user <br/>
+    ------------[X] best-selling items <br/> 
+    ------------[X] best buyers <br/>
     ---[] Customer representative functions: <br/>
     ------[] users post questions to the customer representatives (i.e. customer service) <br/>
     ------[] reps reply to user questions <br/>
