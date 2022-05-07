@@ -68,6 +68,75 @@ public class HelperFunctions {
 	}
 	
 	/**
+	 * This method is used to get the list of questions asked so far.
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
+	public static List<Question> getListOfQuestions() throws SQLException {
+		List<Question> questions = new ArrayList<>();
+		
+		ApplicationDB db = new ApplicationDB();
+		java.sql.Connection con = db.getConnection();
+		
+		java.sql.Statement statement = con.createStatement();
+		
+		ResultSet questionsSet = statement.executeQuery("select * from questionAndAnswer");
+		
+		while(questionsSet.next()) {
+			int questionID = questionsSet.getInt("questionID");
+			String usernameAsker = questionsSet.getString("usernameAsker");
+			String questionTitle = questionsSet.getString("questionTitle");
+			String questionBodyContent = questionsSet.getString("questionBodyContent");
+			String usernameResponder = questionsSet.getString("usernameResponder");
+			String answerBodyContent = questionsSet.getString("answerBodyContent");
+			int questionAnswered = questionsSet.getInt("questionAnswered");
+			Question questionToAdd = new Question(questionID, usernameAsker, questionTitle, questionBodyContent,
+					usernameResponder, answerBodyContent, questionAnswered);
+			questions.add(questionToAdd);
+		}
+		
+		statement.close();
+		con.close();
+		
+		return questions;
+	}
+	
+	/**
+	 * This method gets a question by question ID.
+	 * 
+	 * @param questionID
+	 * @return
+	 * @throws SQLException
+	 */
+	public static Question getQuestion(int questionID) throws SQLException {
+		Question question = null;
+		
+		ApplicationDB db = new ApplicationDB();
+		java.sql.Connection con = db.getConnection();
+		
+		java.sql.Statement statement = con.createStatement();
+		
+		ResultSet questionSearch = statement.executeQuery("select * from questionAndAnswer where questionID = '"+questionID+"'");
+		
+		questionSearch.next();
+		
+		String usernameAsker = questionSearch.getString("usernameAsker");
+		String questionTitle = questionSearch.getString("questionTitle");
+		String questionBodyContent = questionSearch.getString("questionBodyContent");
+		String usernameResponder = questionSearch.getString("usernameResponder");
+		String answerBodyContent = questionSearch.getString("answerBodyContent");
+		int questionAnswered = questionSearch.getInt("questionAnswered");
+		question = new Question(questionID, usernameAsker, questionTitle, questionBodyContent,
+				usernameResponder, answerBodyContent, questionAnswered);
+		
+		statement.close();
+		con.close();
+		
+		return question;
+	}
+	
+	/**
 	 * This method is used to get the auctions that are similar to an item and were made in the month before.
 	 * 
 	 * @param vehicleType

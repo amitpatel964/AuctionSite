@@ -7,8 +7,6 @@
 		<title>Customer Rep Home Page</title>
 	</head>
 	<body>
-		<a href="replyUserQuestions.jsp"> Reply to user questions</a>
-		<br>
 		<%=session.getAttribute("user")%>'s Home Page
 		<a href='logout.jsp'>Log out</a>
 		<br/> <br/>

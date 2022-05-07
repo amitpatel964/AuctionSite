@@ -114,7 +114,7 @@
 		ResultSet maxIDSearch = statement.executeQuery("select MAX(auctionID) AS biggest from auction");
 		maxIDSearch.next();
 		int maxID = maxIDSearch.getInt(1);
-		auctionID += amount;
+		auctionID = maxID + 1;
 	}
 	
 	// Placeholder values. These columns will be filled in as people put in bids.

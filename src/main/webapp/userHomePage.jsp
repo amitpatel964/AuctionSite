@@ -46,6 +46,12 @@ From here, the user is able to create an auction, search of an auction, and view
 			<input type="hidden" name="username" value="<%= session.getAttribute("user") %>"/>
 			<input type="submit" value="Create Alert"/>
 		</form>
+		<form action="searchQuestionsPage.jsp" method="POST">
+			<p>
+				Click the button below to see and create questions
+			</p>
+			<input type="submit" value="Go to Questions Page"/>
+		</form>
 		
 		<h1>Alerts</h1><br/>
 		<form action="showAuctionDetails.jsp" method="POST">
