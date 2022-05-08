@@ -8,78 +8,43 @@ public class User {
 	 * One user can have the status of Admin. Admin appoints Customer Representatives.
 	 */
 	
-	private int id;
+	private String username;
+	private String email;
 	private String firstName;
 	private String lastName;
 	private String password;
-	private String email;
-	private boolean custRep;
-	private boolean admin;
+	private int isCustRep;
 	
-	public User(int id, String firstName, String lastName, String password, String email, boolean cr, boolean ad) {
-		this.id = id;
+	public User(String username, String email, String firstName, String lastName, String password, int isCustRep) {
+		this.username = username;
+		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
-		this.email = email;
-		custRep = cr;
-		admin = ad;
+		this.isCustRep = isCustRep;
 	}
-	
-	public int getId() {
-		return id;
+
+	public String getUsername() {
+		return username;
+	}
+
+	public String getEmail() {
+		return email;
 	}
 
 	public String getFirstName() {
 		return firstName;
 	}
 
-	public String getlastName() {
+	public String getLastName() {
 		return lastName;
 	}
 
-	public String getEmail(){
-		return email;
-	}
-	
-	public String getPassword(){
+	public String getPassword() {
 		return password;
 	}
-	
-	public void setId(int i) {
-		this.id = i;
+
+	public int getIsCustRep() {
+		return isCustRep;
 	}
-	
-	public void setFirstName(String f) {
-		this.firstName = f;
-	}
-	
-	public void setLastName(String l) {
-		this.lastName = l;
-	}
-	
-	public void setEmail(String e) {
-		this.email = e;
-	}
-	
-	public void setPassword(String pw) {
-		this.password = pw;
-	}
-	
-	public boolean getCustRep() {
-		return custRep;
-	}
-	
-	public void setCustRep(boolean c) {
-		this.custRep = c;
-	}
-	
-	public boolean getAdmin(){
-		return admin;
-	}
-	
-	public void setAdmin(boolean a) {
-		this.admin = a;
-	}
-	
 }

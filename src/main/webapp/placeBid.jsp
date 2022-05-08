@@ -22,7 +22,13 @@
 		<br/>
 		<%
 			int auctionID = Integer.parseInt(request.getParameter("idHelper"));
-			float amount = Float.parseFloat(request.getParameter("amount"));
+			String amountString = request.getParameter("amount");
+			float amount;
+			try {
+				amount = Float.parseFloat(request.getParameter("amount"));
+			} catch (Exception e) {
+				amount = 0;
+			}
 			String user = session.getAttribute("user").toString();
 			Auction auction = HelperFunctions.getAuction(auctionID);
 		%>
@@ -95,7 +101,10 @@
 				if (shouldNotifyResult.equals("Yes")) {
 					statement.executeUpdate("insert into alertForBidOrWinner values('outbid','"+currentHighestBidder+"','"+auctionID+"','no')");
 				}
+				statement.executeUpdate("delete from alertNotifyIfOutbid where username = '"+ currentHighestBidder +"' and auctionID ='" + auctionID + "'");
 			}
+			
+			ResultSet result = statement.executeQuery("select * from alertNotifyIfOutbid where auctionID ='" + auctionID + "'");
 			
 			statement.executeUpdate("update auction set currentHighestBidder='" + user + "' where auctionID='" + auctionID + "'");
 			out.println("Bid Placed!");

@@ -58,7 +58,7 @@ From here, the user is able to create an auction, search of an auction, and view
 			<%
 				// Check to see if any open auctions should be ending
 				HelperFunctions.checkIfAnyAuctionHasEnded();
-			
+				
 				// Check if the user was outbid or if they won or lost any auctions
 				List<Alert> alertsForUser = HelperFunctions.getAlertsForBidOrWinner(session.getAttribute("user").toString());
 				List<Alert> alertsForUserNewItem = HelperFunctions.getAlertsForNewItem(session.getAttribute("user").toString());

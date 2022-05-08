@@ -103,6 +103,63 @@ public class HelperFunctions {
 	}
 	
 	/**
+	 * This method gets the list of regular users
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
+	public static List<User> getListOfUsers() throws SQLException {
+		List<User> users = new ArrayList<>();
+		
+		ApplicationDB db = new ApplicationDB();
+		java.sql.Connection con = db.getConnection();
+		
+		java.sql.Statement statement = con.createStatement();
+		
+		ResultSet usersSet = statement.executeQuery("select * from user where isCustRep = '0'");
+		
+		while(usersSet.next()) {
+			String username = usersSet.getString("username");
+			String email = usersSet.getString("email");
+			String firstName = usersSet.getString("firstName");
+			String lastName = usersSet.getString("lastName");
+			String password = usersSet.getString("password");
+			int isCustRep = usersSet.getInt("isCustRep");
+			User userToAdd = new User(username, email, firstName, lastName, password, isCustRep);
+			users.add(userToAdd);
+		}
+		
+		statement.close();
+		con.close();
+		
+		return users;
+	}
+	
+	
+	public static User getUser(String username) throws SQLException {
+		ApplicationDB db = new ApplicationDB();
+		java.sql.Connection con = db.getConnection();
+		
+		java.sql.Statement statement = con.createStatement();
+		
+		ResultSet userSearch = statement.executeQuery("select * from user where username = '"+username+"'");
+		
+		userSearch.next();
+		
+		String email = userSearch.getString("email");
+		String firstName = userSearch.getString("firstName");
+		String lastName = userSearch.getString("lastName");
+		String password = userSearch.getString("password");
+		int isCustRep = userSearch.getInt("isCustRep");
+		User user = new User(username, email, firstName, lastName, password, isCustRep);
+		
+		statement.close();
+		con.close();
+		
+		return user;
+	}
+	
+	/**
 	 * This method gets a question by question ID.
 	 * 
 	 * @param questionID
@@ -258,7 +315,11 @@ public class HelperFunctions {
 		java.sql.Connection con = db.getConnection();
 		
 		java.sql.Statement statement = con.createStatement();
-	
+		
+		ResultSet test = statement.executeQuery("select count(*) from alertForBidOrWinner");
+		test.next();
+		System.out.println(test.getInt(1));
+		
 		ResultSet alertsForUserSet = statement.executeQuery("select * from alertForBidOrWinner where username ='" + currentUser + "' and wasSeen = 'no'");
 		
 		while (alertsForUserSet.next()) {

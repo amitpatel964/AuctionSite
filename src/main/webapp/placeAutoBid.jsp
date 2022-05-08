@@ -21,7 +21,12 @@
 		<br/>
 		<%
 			int auctionID = Integer.parseInt(request.getParameter("idHelper"));
-			float amount = Float.parseFloat(request.getParameter("amount"));
+			float amount;
+			try {
+				amount = Float.parseFloat(request.getParameter("amount"));
+			} catch (Exception e) {
+				amount = 0;
+			}
 			String user = session.getAttribute("user").toString();
 			Auction auction = HelperFunctions.getAuction(auctionID); 
 		%>
