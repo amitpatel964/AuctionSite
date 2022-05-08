@@ -28,8 +28,8 @@ II. Browsing and advanced search functionality <br/>
     ------[X] view the list of "similar" items on auctions in the preceding month (and auction information about them) <br/>
     ---[X] let user set an alert for specific items s/he is interested <br/>
     ------[X] get an alert when the item becomes available <br/>
-    ---[] users browse questions and answers <br/>
-    ---[] users search questions by keywords <br/>
+    ---[X] users browse questions and answers <br/>
+    ---[X] users search questions by keywords <br/>
  
 I||. Admin and customer rep functions <br/>
     ---[X] Admin (create an admin account ahead of time) <br/>
@@ -43,7 +43,7 @@ I||. Admin and customer rep functions <br/>
     ------------[X] best-selling items <br/> 
     ------------[X] best buyers <br/>
     ---[] Customer representative functions: <br/>
-    ------[] users post questions to the customer representatives (i.e. customer service) <br/>
+    ------[X] users post questions to the customer representatives (i.e. customer service) <br/>
     ------[] reps reply to user questions <br/>
     ------[] edits and deletes account information <br/>
     ------[] removes bids <br/>
