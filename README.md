@@ -42,9 +42,9 @@ I||. Admin and customer rep functions <br/>
     ------------[X] end-user <br/>
     ------------[X] best-selling items <br/> 
     ------------[X] best buyers <br/>
-    ---[] Customer representative functions: <br/>
+    ---[X] Customer representative functions: <br/>
     ------[X] users post questions to the customer representatives (i.e. customer service) <br/>
-    ------[] reps reply to user questions <br/>
-    ------[] edits and deletes account information <br/>
-    ------[] removes bids <br/>
-    ------[] removes auctions <br/>
+    ------[X] reps reply to user questions <br/>
+    ------[X] edits and deletes account information <br/>
+    ------[X] removes bids <br/>
+    ------[X] removes auctions <br/>
