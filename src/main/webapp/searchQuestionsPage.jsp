@@ -27,12 +27,27 @@
 			<input type="submit" value="Create Question"/>
 		</form>
 		<br/>
+		Search Questions by keyword in title:
+		<br/>
+		<form action="searchQuestionsPage.jsp" method="POST">
+			Keyword:
+			<input type="text" name="keyword"/> <br/><br/>
+			<input type="submit" value="Search Questions"/>
+		</form>
+		<br/>
 		List of Questions </br>
 		</br>
 		
 		<% 
 			List<Question> questions = new ArrayList<>(); 
 			questions = HelperFunctions.getListOfQuestions();
+			
+			String keyword;
+			try {
+				keyword = request.getParameter("keyword");
+			} catch (NumberFormatException e) {
+				keyword = "";
+			}
 		%>
 		
 		<table>
@@ -47,6 +62,11 @@
 			<% 
 				for (int i = 0; i < questions.size(); i++) {
 					Question question = questions.get(i);
+					if (keyword != null && !keyword.equals("")) {
+						if (!question.getQuestionTitle().toLowerCase().contains(keyword.toLowerCase())) {
+							continue;
+						}
+					}
 					%>
 					<tr>
 					<form action="showQuestionDetails.jsp" method="POST">

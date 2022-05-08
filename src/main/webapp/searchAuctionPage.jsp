@@ -51,6 +51,8 @@
 				<input type="text" name="manufacturer"/> <br/><br/>
 				Model </br> 
 				<input type="text" name="model"/> <br/><br/>
+				Year </br> 
+				<input type="text" name="year"/> <br/><br/>
 				Maximum Mileage </br> 
 				<input type="text" name="maxMileage"/> <br/><br/>
 				Minimum Miles Per Gallon </br> 
@@ -73,7 +75,7 @@
 					</select>
 				</br> </br>
 			<input type="submit" value="Filter and/or Sort Auctions"/>
-			</br></br>
+			</br>
 		</form>
 		<%
 			String vehicleType;
@@ -110,6 +112,14 @@
 				model = request.getParameter("model");
 			} catch (NumberFormatException e) {
 				model = "";
+			}
+			
+			String yearString;
+			int year = 0;
+			try {
+				yearString = request.getParameter("year");
+			} catch (NumberFormatException e) {
+				yearString = "";
 			}
 			
 			String minimumMPGString;
@@ -170,7 +180,25 @@
 					allAuctions = sortedList;
 				}
 			}
-			
+			%>
+				<table>
+					<tr> 
+						<th>Select Button</th>
+						<th>Auction ID</th>
+						<th>Auction Name</th>
+						<th>Creator</th>
+						<th>Manufacturer</th>
+						<th>Model</th>
+						<th>Year</th>
+						<th>Current Price</th>
+						<th>Vehicle Type</th>
+						<th>Vehicle Condition</th>
+						<th>Fuel Type</th>
+						<th>Mileage</th>
+						<th>Miles Per Gallon</th>
+						<th>Status</th>
+					</tr>
+			<%
 			for (int i = 0; i < allAuctions.size(); i++) {
 				Vehicle vehicle = HelperFunctions.getVehicleFromAuctionID(allAuctions.get(i).getAuctionID());
 				if (vehicleType != null && !vehicleType.equals("")){
@@ -199,6 +227,15 @@
 				}
 				if (model != null && !model.equals("")){
 					if (!model.equals(vehicle.getModel())) {
+						continue;
+					}
+				}
+				if (yearString != null && !yearString.equals("")){
+					year = Integer.parseInt(yearString);
+					if (year < 0) {
+						year = 0;
+					}
+					if (year != vehicle.getYear()) {
 						continue;
 					}
 				}
@@ -232,25 +269,29 @@
 				}
 				
 				%>
+				<tr>
 				<form action="showAuctionDetails.jsp" method="POST">
 					<input type="hidden" name="idHelper" value="<%= allAuctions.get(i).getAuctionID() %>"/>
-					<input type="submit" value="Select this Auction"/>
-					<strong> Auction: </strong> <%= allAuctions.get(i).getAuctionID() %>,
-					<strong> Auction Name: </strong> <%= allAuctions.get(i).getAuctionName() %>
-					<strong> Creator: </strong> <%= allAuctions.get(i).getCreator() %>,
-					<strong> Manufacturer: </strong> <%= vehicle.getManufacturer() %>,
-					<strong> Model: </strong> <%= vehicle.getModel() %>,
-					<strong> Current Price: </strong> <%= allAuctions.get(i).getCurrentPrice() %>,
-					<strong> Vehicle Type: </strong> <%= allAuctions.get(i).getVehicleType() %>,
-					<strong> Vehicle Condition: </strong> <%= vehicle.getNewOrUsed() %>,
-					<strong> Vehicle Fuel Type: </strong> <%= vehicle.getFuelType() %>,
-					<strong> Mileage: </strong> <%= vehicle.getMileage() %>,
-					<strong> Miles Per Gallon: </strong> <%= vehicle.getMilesPerGallon() %>,
-					<strong> Status: </strong> <%= allAuctions.get(i).getStatus() %>
+					<td> <input type="submit" value="Select this Auction"/> </td>
+					<td> <%= allAuctions.get(i).getAuctionID() %> </td>
+					<td> <%= allAuctions.get(i).getAuctionName() %> </td>
+					<td> <%= allAuctions.get(i).getCreator() %> </td>
+					<td> <%= vehicle.getManufacturer() %> </td>
+					<td> <%= vehicle.getModel() %> </td>
+					<td> <%= vehicle.getYear() %> </td>
+					<td> <%= allAuctions.get(i).getCurrentPrice() %> </td>
+					<td> <%= allAuctions.get(i).getVehicleType() %> </td>
+					<td> <%= vehicle.getNewOrUsed() %> </td>
+					<td> <%= vehicle.getFuelType() %> </td>
+					<td> <%= vehicle.getMileage() %> </td>
+					<td> <%= vehicle.getMilesPerGallon() %> </td>
+					<td> <%= allAuctions.get(i).getStatus() %> </td>
 				</form>
+				</tr>
 				<br/>
 				<%
 			}
 		%>
+		</table>
 	</body>
 </html>
