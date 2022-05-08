@@ -74,7 +74,7 @@
 		minimumSellingPrice = Float.parseFloat(minimumSellingPriceString);
 		bidIncrement = Float.parseFloat(bidIncrementString);
 	} catch (NumberFormatException e) {
-		out.println("Please fill in all vehicle fields");
+		out.println("Please fill in all auction fields properly");
 		out.println("<a href='createAuctionPage.jsp'> Click here to try again </a>");
 		return;
 	}
@@ -88,18 +88,17 @@
 		return;
 	}
 	
-	String temp = "2022-04-06 12:00";
-	DateTimeFormatter temp2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-	startingDateTime = LocalDateTime.parse(temp, temp2);
+	//String temp = "2022-04-06 12:00";
+	//DateTimeFormatter temp2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+	//startingDateTime = LocalDateTime.parse(temp, temp2);
 	
 	String dateAndTime = endingDate + " " + endingTime;
-	DateTimeFormatter formatter;
+	DateTimeFormatter formatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 	LocalDateTime endingDateTime;	
 				
 	try {
-		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		endingDateTime = LocalDateTime.parse(dateAndTime, formatter);
-	} catch(NumberFormatException e) {
+	} catch(Exception e) {
 		out.println("Please type in the ending date and time correctly");
 		out.println("<a href='createAuctionPage.jsp'> Click here to try again </a>");
 		return;
